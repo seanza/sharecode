@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+          <script type="text/javascript" src="css/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+var a1="aaa";
+window.setInterval("time()",60000);
+function time(){
+$.ajax( {    
+    url:'SummetServlet',
+    data:{name:a1},
+    type:'post',    
+    cache:false,    
+    dataType:'json',
+    success: function (msg) {
+        for (i in msg) {
+            alert(msg[i]);
+        }
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+        alert(textStatus);
+    },
+    complete: function(XMLHttpRequest, textStatus) {
+        this; // 调用本次AJAX请求时传递的options参数
+    }
+    });
+}
+
+</script>
+</html>

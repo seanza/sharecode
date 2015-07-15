@@ -1,0 +1,56 @@
+<%@&nbsp;page&nbsp;language="java"&nbsp;contentType="text/html;&nbsp;charset=UTF-8"
+&nbsp;&nbsp;&nbsp;&nbsp;pageEncoding="UTF-8"%>
+<!DOCTYPE&nbsp;html&nbsp;PUBLIC&nbsp;"-//W3C//DTD&nbsp;HTML&nbsp;4.01&nbsp;Transitional//EN"&nbsp;"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta&nbsp;http-equiv="Content-Type"&nbsp;content="text/html;&nbsp;charset=UTF-8">
+<title>Insert&nbsp;title&nbsp;here</title>
+<script&nbsp;src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"&nbsp;type="text/javascript"></script>
+<script&nbsp;type="text/javascript">
+var&nbsp;socket&nbsp;=null;
+$(function(){
+	function&nbsp;parseObj(strData){//转换对象
+	&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;(new&nbsp;Function(&nbsp;"return&nbsp;"&nbsp;+&nbsp;strData&nbsp;))();
+	};
+	//创建socket对象
+	socket&nbsp;=&nbsp;new&nbsp;WebSocket("ws://"+&nbsp;window.location.host+"/${pageContext.request.contextPath}/websocket");
+	//连接创建后调用
+	socket.onopen&nbsp;=&nbsp;function()&nbsp;{
+		$("#showMsg").append("连接成功...<br/>");
+	};
+	//接收到服务器消息后调用
+	socket.onmessage&nbsp;=&nbsp;function(message)&nbsp;{
+		var&nbsp;data=parseObj(message.data);
+		if(data.type=="message"){
+			$("#showMsg").append("<span&nbsp;style='display:block'>"+data.text+"</span>");
+		}else&nbsp;if(data.type=="background"){
+			$("#showMsg").append("<span&nbsp;style='display:block'>系统改变背景地址,背景地址是:"+data.text+"</span>");
+			$("body").css("background","url("+data.text+")");
+		}
+	};
+	//关闭连接的时候调用
+	socket.onclose&nbsp;=&nbsp;function(){
+		alert("close");
+	};
+	//出错时调用
+	socket.onerror&nbsp;=&nbsp;function()&nbsp;{
+		alert("error");
+	};
+	$("#sendButton").click(function()&nbsp;{
+		socket.send($("#msg").val());
+	});
+	$("#abcde").click(function(){
+		$.post("${pageContext.request.contextPath}/backgroundimg");
+	});
+});
+</script>
+</head>
+<body>
+	<div&nbsp;id="showMsg"&nbsp;style="border:&nbsp;1px&nbsp;solid;&nbsp;width:&nbsp;500px;&nbsp;height:&nbsp;400px;&nbsp;overflow:&nbsp;auto;"></div>
+	<div>
+		<input&nbsp;type="text"&nbsp;id="msg"&nbsp;/>&nbsp;
+		<input&nbsp;type="button"&nbsp;id="sendButton"&nbsp;value="发送"&nbsp;/>
+		<input&nbsp;type="button"&nbsp;value="改变背景"&nbsp;id="abcde"&nbsp;/>
+	</div>
+</body>
+</html>

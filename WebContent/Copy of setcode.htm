@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html><!--<![endif]--><!-- =========================================
+    head
+    ========================================== --><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+        <!-- =========================================
+        Basic
+        ========================================== -->
+       
+        <title>智能周转柜</title>
+
+        <!-- =========================================
+        CSS
+        ========================================== -->
+        
+        <link rel="stylesheet" media="screen" href="css/bootstrap.min.css">
+		<link rel="stylesheet" media="screen" href="css/font-awesome.min.css">
+        <link rel="stylesheet" media="screen" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/demo.css" />
+        <link rel="stylesheet" type="text/css" href="css/style3.css" />
+		<link rel="stylesheet" href="css/buttons.css">
+		<link rel="stylesheet" href="css/ui-dialog.css">
+
+        <!-- =========================================
+        Head Libs
+        ========================================== -->
+        <script type="text/javascript" src="css/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="css/modernizr.custom.js"></script>
+        <script src="dist/dialog-min.js"></script>
+		<style type="text/css">
+       .in1{
+display: block;
+width: 100%;
+height: 70px;
+padding: 12px 12px;
+font-size: 14px;
+margin-left:13px  ! important;
+line-height: 1.42857143;
+color: #555;
+background-color: #fff;
+background-image: none;
+border: 1px solid #ccc;
+border-radius: 4px;
+-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+	   }
+	   .aaa h1{
+	   font-size:45px;
+	   }
+	   .mar{
+	   margin-top:30px;
+	   }
+	   .juzhong{
+	  text-align:center;
+	  margin:20px auto;
+	   }
+	   .juzuo{
+	  
+	  margin-left:30px;
+	   }
+	   .w80{
+	   margin:30px auto;
+	   width:80%;
+	   }
+	   .table>thead>tr>th>input{
+	    width:220px;
+	   
+	   }
+
+	   .maxhei{
+	   max-height: 280px;
+	   overflow:scroll;
+	   }
+        </style>
+    </head><!-- /head -->
+
+
+
+
+    <!-- =========================================
+    body
+    ========================================== -->
+    <body>        <!-- =========================================
+        Menu
+        ========================================== -->
+        <!-- nav-wrapper -->
+        <div id="nav-wrapper">
+            <!-- navbar -->
+            <div class="navbar">
+                <!-- container -->
+                <div class="container">
+                    <!-- row -->
+                    <div class="row">
+
+                        <!-- col-md-12 -->
+                        <div class="col-md-12">
+
+                            <!-- navbar-header -->
+                            <div class="navbar-header">
+
+                                <!-- Mobile Menu -->
+                                <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+                                    <i class="fa fa-bars"></i>
+                                </button><!-- / mobile Menu -->
+
+                                <!-- logo -->
+                                <a href="#" class="navbar-brand scrollto" title="Horrus">
+                                    <img src="./css/logo2.png" alt="logo">
+                                </a><!-- /logo -->
+
+                            </div><!-- /navbar-header -->
+
+                            <!-- navbar-collapse -->
+                            <div class="navbar-collapse collapse">
+
+                                <!-- nav -->
+                                <ul class="nav navbar-nav navbar-right">
+
+                                    <!-- Home -->
+                                    <li>
+                                        <a href="#" title="Home" class="scrollto">
+                                           首页
+                                        </a>
+                                    </li><!-- /Home -->
+
+                                    <!-- Services -->
+                                    <li>
+                                        <a href="#" title="Our Services" class="scrollto">
+                                           帮助                                       </a>
+                                    </li><!-- /Services -->
+
+                                    <!-- Portfolio -->
+                                    <li>
+                                        <a href="#" title="Portfolio" class="scrollto">
+                                           关于
+                                        </a>
+                                    </li><!-- /Portfolio -->
+
+                                </ul><!-- /nav -->
+
+                            </div><!-- /navbar-collapse -->
+
+                        </div><!-- /col-md-12 -->
+
+                    </div><!-- /row -->
+                </div><!-- /container -->
+            </div><!-- /navbar -->
+        </div><!-- /nav-wrapper -->
+
+    <section id="contact-section" >
+     <div class="container" id="div1" style="display:none">
+                <!-- row -->
+                <div class="row">
+
+                    <!-- col-md-12 -->
+                    <div class="col-md-12">
+
+                        <!-- section-title -->
+                        <div class="section-title uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-fade" data-uk-scrollspy="{cls:'uk-animation-fade', delay:500}">
+                            <h1>选择入库表计数量</h1>
+                        </div><!-- /section-title -->
+
+                        <!-- section-desc -->
+                        <div class="section-desc uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-fade" data-uk-scrollspy="{cls:'uk-animation-fade', delay:700}">
+                            <p>请根据表计类型选择相应的数量</p>
+                        </div><!-- /section-desc -->
+
+                    </div><!-- /col-md-12 -->
+
+
+                    <!-- form -->
+                    <div  id="form" class="contactForm" >
+
+                        <div>
+                        <!-- col-md-6 -->
+						
+						 <div class="col-md-1">
+                           
+                             
+                             
+                        </div>
+                        <div class="col-md-5 aaa">
+                                <h1>选择单相表数量:</h1>
+                        </div>
+                       
+               
+                        <div class="col-md-1">
+                           
+                               <button class="button button-box button-giant" onclick=minnum("text1")><i class="fa fa-minus"></i></button>
+                             
+                        </div>
+
+
+                        <div class="col-md-2">
+                            
+                               <input type="text" class="in1" id="text1" value="0" >
+                             
+                        </div>
+
+						  <div class="col-md-2">
+                           
+                               <button class="button button-box button-giant" onclick=addnum("text1") ><i class="fa fa-plus"></i></button>
+                             
+                        </div>
+						 <div class="col-md-1">
+                           
+                             
+                             
+                        </div>
+						 </div>
+                    </div><!-- /form -->
+
+
+
+                </div><!-- /row -->
+
+				 <div class="row mar">
+
+
+                    <!-- form -->
+                    <div  id="form" class="contactForm" >
+
+                        <div>
+                        <!-- col-md-6 -->
+						
+						 <div class="col-md-1">
+                           
+                             
+                             
+                        </div>
+                        <div class="col-md-5 aaa">
+                                <h1>选择三相表数量:</h1>
+                        </div>
+                       
+               
+                        <div class="col-md-1">
+                           
+                               <button class="button button-box button-giant" onclick=minnum("text2")><i class="fa fa-minus"></i></button>
+                             
+                        </div>
+
+
+                        <div class="col-md-2">
+                            
+                               <input type="text" class="in1" id="text2" value="0" >
+                             
+                        </div>
+
+						  <div class="col-md-2">
+                           
+                               <button class="button button-box button-giant" onclick=addnum("text2") ><i class="fa fa-plus"></i></button>
+                             
+                        </div>
+						 <div class="col-md-1">
+                           
+                             
+                             
+                        </div>
+						 </div>
+                    </div><!-- /form -->
+
+                </div><!-- /row -->
+
+                <div class="juzhong">
+				<a class="btn btn-lg btn-nesto scrollto juzhong" id="button" title="View Portfolio" data-uk-scrollspy="{cls:&#39;uk-animation-slide-bottom&#39;, delay:500}">
+                               确  认
+                            </a><!-- /btn-nesto -->
+                </div>
+
+
+           </div>
+        <div class="container" id="div2">
+		<div  class="panel panel-default w80">
+		  <div class="panel-heading">设置周转柜储位条码</div>
+		<div id="dateMessage" class="maxhei">   
+        <table id="tab1" class="table">   
+        <tr><td>位置号</td><td>输入条码</td></tr>   
+        </table>   
+        </div>   
+        </div>
+
+		<div class="juzhong">
+		<button class="button button-royal button-raised  juzhong" id="button1">确认入库</button>
+		</div>
+		</div>
+        </section>
+		<footer class="footer">
+		<h1>Footer</h1>
+		</footer>
+        <!-- =========================================
+        java script
+        ========================================== -->
+
+        <script type="text/javascript" src="css/bootstrap.min.js"></script>
+        <script type="text/javascript" src="css/jquery.easing.1.3.js"></script>
+        <script type="text/javascript" src="css/uikit.js"></script>
+        <script type="text/javascript" src="css/jquery.lwtCountdown-1.0.js"></script>
+        <script type="text/javascript" src="css/jquery.scrollto.js"></script>
+        <script type="text/javascript" src="css/jquery.parallax-1.1.3.js"></script>
+        <script type="text/javascript" src="css/owl.carousel.min.js"></script>
+        <script type="text/javascript" src="css/jquery.mousewheel-3.0.6.pack.js"></script>
+        <script type="text/javascript" src="css/jquery.fancybox.js"></script>
+        <script type="text/javascript" src="css/jquery.fancybox-media.js"></script>
+        <script type="text/javascript" src="css/jquery.fitvids.js"></script>
+        <script type="text/javascript" src="css/jquery.cbpQTRotator.min.js"></script> 
+		<script > 
+      $(document).ready(function(){
+		var arrid=new Array();
+        var str = "";
+        for (i=1;i<48;i++) {
+            str += "<tr><td>" + i + "</td><td><input name=aaa style='width:200px' />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button onclick='del(this)' class='button button-pill button-primary'>重新扫描</button></td></tr>";
+			arrid[i-1]=i;
+        }
+        $("tbody").append(str);
+        var dlall=document.getElementsByName('aaa');        
+        for(i=0;i<dlall.length;i++){
+        	dlall[i].id='inp'+i;
+        }
+	  $("#button1").click(function(){
+		  var arrcode= new Array();
+		  var dlall=document.getElementsByName('aaa');
+            for(i=0;i<dlall.length;i++){
+        	   arrcode[i]=document.getElementById('inp'+i).value;
+            }
+		  var scode=arrcode.join(",");
+		  var sid=arrid.join(",");
+    $.ajax({    
+    url:'SetchuweicodeServlet',
+    data:{name:scode,password:sid},
+    type:'post',    
+    cache:false,    
+    dataType:'json',
+    success: function (a) {
+    	if(a=="成功"){
+    		var d = dialog({
+        		lock:true,
+        		title: '消息',
+        		content: '成功，系统将回到首页',
+        		 okValue: '确定',
+        		    ok: function () {
+        		    	 window.location.href="n3.htm";
+        		    },
+        		    cancel: false,
+        	});
+        	d.showModal();
+        	SpeakTextses();
+    	}
+    	else{
+    		SpeakTextfal();
+            alert(a);
+            self.location.reload();
+    	}
+    },
+
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+        alert(textStatus);
+    },
+    complete: function(XMLHttpRequest, textStatus) {
+        this; // 调用本次AJAX请求时传递的options参数
+    }
+    });
+});
+
+
+
+});
+</script>   
+<script type="text/javascript">
+var keystring = "";//记录按键的字符串
+var linshi="";
+var a=1;
+//var ab = document.getElementById("tab1").rows.length;
+function keypress(e)
+　　{
+　　var currKey=0,CapsLock=0,e=e||event;
+　　currKey=e.keyCode||e.which||e.charCode;
+　　CapsLock=currKey>=65&&currKey<=90;
+    var table =document.getElementById("tab1");
+    var rows = table.rows.length;
+	
+　　switch(currKey)
+　　{
+　　　　//屏蔽了退格、制表、回车、空格、方向键、删除键
+　　　　case 8: case 9:case 32:case 37:case 38:case 39:case 40:case 46:keyName = "";break;
+　　　　default:keyName = String.fromCharCode(currKey); break;
+　　}
+　　keystring += keyName;
+   if(currKey==13)
+	{
+		   for ( var i = 0; i < rows+2; i++) //循环到arr数组的长度减一，最后一个就不用循环了 
+		{
+		  if(document.getElementById('inp'+i).value==""){
+			  if(linshi!=keystring){
+          document.getElementById('inp'+i).value=keystring;
+			  }
+		  linshi=keystring;
+		  keystring="";
+          keyName="";
+		 break;
+          }
+		}
+	}
+
+}
+function keyup(e)
+{
+　　//document.getElementById("content").innerHTML=keystring;
+    //document.getElementById("aa1").value=keystring;
+	currKey=e.keyCode||e.which||e.charCode;
+	//if(currKey==13){
+      //     keystring="";
+        //   keyName="";
+		//{
+}
+document.onkeypress=keypress;
+document.onkeyup =keyup;
+
+</script>
+<script >   
+		function del(obj)   
+		  {   
+		     obj.parentNode.firstChild.value="";   
+		  }
+		</script >
+		<SCRIPT LANGUAGE="JavaScript">
+            var VoiceObj = new ActiveXObject("Sapi.SpVoice"); //创建一个朗读人
+            VoiceObj.Rate=-4;
+            VoiceObj.Speak("请分别选择两种表计数量", 1);
+            function SpeakText()
+            {
+            	VoiceObj.Speak("请打开柜门，按顺序在亮灯位置放表扫码", 1);
+            }
+            function SpeakTextses()
+            {
+            	VoiceObj.Speak("入库成功，请关闭柜门", 1);
+            }
+            function SpeakTextfal()
+            {
+            	VoiceObj.Speak("入库失败，表位异常，请放回表计", 1);
+            }
+           
+        </SCRIPT>
+</body>
+</html>

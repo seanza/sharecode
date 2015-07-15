@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html  class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms no-csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" style=""><!--<![endif]--><!-- =========================================
+    head
+    ========================================== --><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- =========================================
+        Basic
+        ========================================== -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>智能周转柜</title>
+        <!-- =========================================
+        Mobile Configurations
+        ========================================== -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="GOOGLEBOT" content="index follow">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <!-- =========================================
+        CSS
+        ========================================== -->
+        <link rel="stylesheet" media="screen" href="css/bootstrap.min.css">
+        <link rel="stylesheet" media="screen" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/demo.css" />
+        <link rel="stylesheet" type="text/css" href="css/style3.css" />
+		<link rel="stylesheet" href="css/buttons.css">
+
+        <!-- =========================================
+        Head Libs
+        ========================================== -->
+        <script type="text/javascript" src="css/modernizr.custom.js"></script>
+
+        <script src="dist/dialog-min.js"></script>
+        <style>
+th{
+width:80px;
+height:50px
+}
+td{
+width:80px;
+height:50px
+}
+</style>
+<style type="text/css">
+       .in1{
+                 display: block;
+                 width: 100%;
+                 height: 70px;
+                 padding: 12px 12px;
+                 font-size: 14px;
+                 margin-left:13px  ! important;
+                 line-height: 1.42857143;
+                 color: #555;
+                 background-color: #fff;
+                 background-image: none;
+                 border: 1px solid #ccc;
+                 border-radius: 4px;
+                 -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                 box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                 -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+                 -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                 transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+	   }
+	   .aaa h1{
+	   font-size:45px;
+	   }
+	   .mar{
+	   margin-top:30px;
+	   }
+	   .mar15{
+	   margin-top:24px;
+	   }
+	   .juzhong{
+	  text-align:center;
+	  margin:20px auto;
+	   }
+	   .juzuo{
+	  
+	  margin-left:30px;
+	   }
+	   .w80{
+	   margin:30px auto;
+	   width:80%;
+	   }
+	   .table>thead>tr>th>input{
+	    width:220px;
+	   
+	   }
+
+	   .maxhei{
+	   max-height: 280px;
+	   overflow:scroll;
+	   }
+        </style>
+
+    </head><!-- /head -->
+
+
+
+
+    <!-- =========================================
+    body
+    ========================================== -->
+    <body>
+
+
+
+
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+
+
+
+
+        <!-- =========================================
+        Menu
+        ========================================== -->
+        <!-- nav-wrapper -->
+        <div id="nav-wrapper">
+            <!-- navbar -->
+            <div class="navbar">
+                <!-- container -->
+                <div class="container">
+                    <!-- row -->
+                    <div class="row">
+
+                        <!-- col-md-12 -->
+                        <div class="col-md-12">
+
+                            <!-- navbar-header -->
+                            <div class="navbar-header">
+
+                                <!-- Mobile Menu -->
+                                <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+                                    <i class="fa fa-bars"></i>
+                                </button><!-- / mobile Menu -->
+
+                                <!-- logo -->
+                                <a href="#" class="navbar-brand scrollto" title="Horrus">
+                                    <img src="./css/logo2.png" alt="logo">
+                                </a><!-- /logo -->
+
+                            </div><!-- /navbar-header -->
+
+                            <!-- navbar-collapse -->
+                            <div class="navbar-collapse collapse">
+
+                                <!-- nav -->
+                                <ul class="nav navbar-nav navbar-right">
+
+                                    <!-- Home -->
+                                    <li>
+                                        <a href="#" title="Home" class="scrollto">
+                                           首页
+                                        </a>
+                                    </li><!-- /Home -->
+
+                                    <!-- Services -->
+                                    <li>
+                                        <a href="#" title="Our Services" class="scrollto">
+                                           帮助                                       </a>
+                                    </li><!-- /Services -->
+
+                                    <!-- Portfolio -->
+                                    <li>
+                                        <a href="#" title="Portfolio" class="scrollto">
+                                           关于
+                                        </a>
+                                    </li><!-- /Portfolio -->
+
+                                </ul><!-- /nav -->
+
+                            </div><!-- /navbar-collapse -->
+
+                        </div><!-- /col-md-12 -->
+
+                    </div><!-- /row -->
+                </div><!-- /container -->
+            </div><!-- /navbar -->
+        </div><!-- /nav-wrapper -->
+
+
+		<div >
+    <section id="contact-section">
+        <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <h2>请在需要禁用的储位打钩</h2>>
+                    <!-- col-md-12 -->
+                    <div class="col-md-12 juzhong">
+ <table class="juzhong" width="800" border="1">
+ <tr>
+  <td align="center" id="td1"><input type="checkbox" name = "black" value = "1">储位1</input></td>
+  <td align="center" id="td2"><input type="checkbox" name = "black" value = "2">储位2</input></td>
+  <td align="center" id="td3"><input type="checkbox" name = "black" value = "3">储位3</input></td>
+  <td align="center" id="td4"><input type="checkbox" name = "black" value = "4">储位4</input></td>
+  <td align="center" id="td5"><input type="checkbox" name = "black" value = "5">储位5</input></td>
+  <td align="center" id="td6"><input type="checkbox" name = "black" value = "6">储位6</input></td>
+  <td align="center" id="td7"><input type="checkbox" name = "black" value = "7">储位7</input></td>
+  <td align="center" id="td8"><input type="checkbox" name = "black" value = "8">储位8</input></td>
+ </tr>
+  <tr>
+  <td align="center" id="td9"><input type="checkbox" name = "black" value = "9">储位9</input></td>
+  <td align="center" id="td10"><input type="checkbox" name = "black" value = "10">储位10</input></td>
+  <td align="center" id="td11"><input type="checkbox" name = "black" value = "11">储位11</input></td>
+  <td align="center" id="td12"><input type="checkbox" name = "black" value = "12">储位12</input></td>
+  <td align="center" id="td13"><input type="checkbox" name = "black" value = "13">储位13</input></td>
+  <td align="center" id="td14"><input type="checkbox" name = "black" value = "14">储位14</input></td>
+  <td align="center" id="td15"><input type="checkbox" name = "black" value = "15">储位15</input></td>
+  <td align="center" id="td16"><input type="checkbox" name = "black" value = "16">储位16</input></td>
+ </tr>
+  <tr>
+  <td align="center" id="td17"><input type="checkbox" name = "black" value = "17">储位17</input></td>
+  <td align="center" id="td18"><input type="checkbox" name = "black" value = "18">储位18</input></td>
+  <td align="center" id="td19"><input type="checkbox" name = "black" value = "19">储位19</input></td>
+  <td align="center" id="td20"><input type="checkbox" name = "black" value = "20">储位20</input></td>
+  <td align="center" id="td21"><input type="checkbox" name = "black" value = "21">储位21</input></td>
+  <td align="center" id="td22"><input type="checkbox" name = "black" value = "22">储位22</input></td>
+  <td align="center" id="td23"><input type="checkbox" name = "black" value = "23">储位23</input></td>
+  <td align="center" id="td24"><input type="checkbox" name = "black" value = "24">储位24</input></td>
+ </tr>
+  <tr>
+  <td align="center" id="td25"><input type="checkbox" name = "black" value = "25">储位25</input></td>
+  <td align="center" id="td26"><input type="checkbox" name = "black" value = "26">储位26</input></td>
+  <td align="center" id="td27"><input type="checkbox" name = "black" value = "27">储位27</input></td>
+  <td align="center" id="td28"><input type="checkbox" name = "black" value = "28">储位28</input></td>
+  <td align="center" id="td29"><input type="checkbox" name = "black" value = "29">储位29</input></td>
+  <td align="center" id="td30"><input type="checkbox" name = "black" value = "30">储位30</input></td>
+  <td align="center" id="td31"><input type="checkbox" name = "black" value = "31">储位31</input></td>
+  <td align="center" id="td32"><input type="checkbox" name = "black" value = "32">储位32</input></td>
+ </tr>
+ </table>
+  <table class="juzhong" width="800" border="1">
+ <tr>
+  <td align="center" id="td33"><input type="checkbox" name = "black" value = "33">储位33</input></td>
+  <td align="center" id="td34"><input type="checkbox" name = "black" value = "34">储位34</input></td>
+  <td align="center" id="td35"><input type="checkbox" name = "black" value = "35">储位35</input></td>
+  <td align="center" id="td36"><input type="checkbox" name = "black" value = "36">储位36</input></td>
+  <td align="center" id="td37"><input type="checkbox" name = "black" value = "37">储位37</input></td>
+ </tr>
+  <tr>
+  <td align="center" id="td38"><input type="checkbox" name = "black" value = "38">储位38</input></td>
+  <td align="center" id="td39"><input type="checkbox" name = "black" value = "39">储位39</input></td>
+  <td align="center" id="td40"><input type="checkbox" name = "black" value = "40">储位40</input></td>
+  <td align="center" id="td41"><input type="checkbox" name = "black" value = "41">储位41</input></td>
+  <td align="center" id="td42"><input type="checkbox" name = "black" value = "42">储位42</input></td>
+ </tr>
+  <tr>
+  <td align="center" id="td43"><input type="checkbox" name = "black" value = "43">储位43</input></td>
+  <td align="center" id="td44"><input type="checkbox" name = "black" value = "44">储位44</input></td>
+  <td align="center" id="td45"><input type="checkbox" name = "black" value = "45">储位45</input></td>
+  <td align="center" id="td46"><input type="checkbox" name = "black" value = "46">储位46</input></td>
+  <td align="center" id="td47"><input type="checkbox" name = "black" value = "47">储位47</input></td>
+ </tr>
+ </table>
+
+</div>
+</div>
+                <div class="row mar">
+						<div class="col-md-12 juzhong">
+                                <button class="button button-royal button-raised  juzhong" id="button1">确认添加</button>
+		                        <button class="button button-royal button-raised  juzuo" id="button2">取消操作</button>
+						</div>
+			    </div>
+        </div>
+
+    </section>
+		</div>
+        
+		<footer class="footer">
+		<h1>Footer</h1>
+		</footer>
+
+
+
+
+
+
+        <!-- =========================================
+        java script
+        ========================================== -->
+        <script type="text/javascript" src="css/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="css/bootstrap.min.js"></script>
+        <script type="text/javascript" src="css/jquery.easing.1.3.js"></script>
+        <script type="text/javascript" src="css/uikit.js"></script>
+        <script type="text/javascript" src="css/jquery.lwtCountdown-1.0.js"></script>
+        <script type="text/javascript" src="css/jquery.scrollto.js"></script>
+        <script type="text/javascript" src="css/jquery.parallax-1.1.3.js"></script>
+        <script type="text/javascript" src="css/owl.carousel.min.js"></script>
+        <script type="text/javascript" src="css/jquery.mousewheel-3.0.6.pack.js"></script>
+        <script type="text/javascript" src="css/jquery.fancybox.js"></script>
+        <script type="text/javascript" src="css/jquery.fancybox-media.js"></script>
+        <script type="text/javascript" src="css/jquery.fitvids.js"></script>
+        <script type="text/javascript" src="css/jquery.cbpQTRotator.min.js"></script>
+        <script type="text/javascript">
+        $.ajax( {    
+            url:'SelallServlet',
+            data:{name:"aa",password:"bb"},
+            type:'post',    
+            cache:false,    
+            dataType:'json',
+            success: function (msg) {
+            	for (var i=0;i<47;i++){
+            	     var j=i+1;
+            	     var aa="td"+j.toString();
+            	                    if(msg[i].ismeter=="1"){
+            	                        document.getElementById(aa).firstChild.disabled=true;
+            	                        //document.getElementById(aa).innerText=document.getElementById(aa).innerText+msg[i].metercode;
+            	                    }
+            	     }
+            	 for (var h=0;h<47;h++){
+           	     var k=h+1;
+           	     var bb="td"+k.toString();
+           	                    if(msg[h].isUseful=="1"){
+           	                    	//alert(msg[i].isuseful);
+           	                        document.getElementById(bb).firstChild.checked=true;
+           	                        //document.getElementById(aa).innerText=document.getElementById(aa).innerText+msg[i].metercode;
+           	                    }
+           	     }
+            	 //document.getElementById('td22').innerText=msg[2].metercode;
+            	 //document.getElementById('td14').innerHTML="33jjs44";
+            },
+
+            error: function(aa) {
+            	var d = dialog({
+            		lock:true,
+            		title: '警告消息',
+            		content: '',
+            		 okValue: '确定',
+            		    ok: function () {},
+            	});
+            	d.showModal();
+            },
+            complete: function(XMLHttpRequest, textStatus) {
+                this; // 调用本次AJAX请求时传递的options参数
+            }
+            });
+       $("#button1").click(function(){
+        	    var blackName = document.getElementsByName("black"); 
+        	    var achec="";
+        	    for(var i=0;i<blackName.length;i++) 
+        	    { 
+        	       if(blackName[i].checked==true) 
+        	       { 
+        	    	  achec=achec+blackName[i].value+","; 
+        	    	  
+        	       } 
+        	    } 
+        	    alert(achec);
+             $.ajax( {    
+                   url:'SetusefulServlet',
+                   data:{name:achec},
+                   type:'post',    
+                   cache:false,    
+                   dataType:'json',
+                   success: function (a) {
+      	                    if(a=="成功"){
+      		                    var d = dialog({
+          		                lock:true,
+          		                title: '消息',
+          		                content: '成功，系统将回到设置菜单页',
+          		                okValue: '确定',
+          		                ok: function () {
+          		    	                 window.location.href="sconfig.jsp";
+          		                },
+          		                 cancel: false,
+          	                 });
+          	                 d.showModal();
+      	                     }
+      	                     else{
+      		                 SpeakTextfal();
+                             alert(a);
+                             self.location.reload();
+      	                     }
+                              },
+
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+          alert(textStatus);
+      },
+      complete: function(XMLHttpRequest, textStatus) {
+          this; // 调用本次AJAX请求时传递的options参数
+      }
+      });
+  });
+        </script>
+        
+        
+        
+        

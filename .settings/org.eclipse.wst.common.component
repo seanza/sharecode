@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="zzg">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/com/github/sarxos/webcam/ds/buildin/lib/darwin_universal"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/com/github/sarxos/webcam/ds/buildin/lib/linux_armel"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/com/github/sarxos/webcam/ds/buildin/lib/linux_armhf"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/com/github/sarxos/webcam/ds/buildin/lib/linux_x64"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/com/github/sarxos/webcam/ds/buildin/lib/linux_x86"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/com/github/sarxos/webcam/ds/buildin/lib/win32"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/com/github/sarxos/webcam/ds/buildin/lib/win64"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/com/github/sarxos/webcam/i18n"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/com/github/sarxos/webcam/icons"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/com/github/sarxos/webcam/ds/buildin/lib"/>
+        <property name="context-root" value="zzg"/>
+        <property name="java-output-path" value="/zzg/build/classes"/>
+    </wb-module>
+</project-modules>

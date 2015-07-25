@@ -61,7 +61,7 @@ public class TakepicServlet extends HttpServlet {
 		PrintWriter out=resp.getWriter();
         list.add("成功");
     	jsons = JSONArray.fromObject(list);
-        out.println(jsons);
+        out.print(jsons);
     	list.clear();
 
 	}

@@ -169,7 +169,7 @@ public class Getinfo {
 		}finally{
 			DbManager.closeConnection(conn, pst, rs);
 		}
-		System.out.println(a);
+		System.out.println(a[0] + " " + a[1]);
 		return a;
 	}
 	public static int[] getadrnum(int num ){            //取指定id的com的储位数量
@@ -204,7 +204,6 @@ public class Getinfo {
 			conn = DbManager.getConnection();
 			pst = conn.prepareStatement("select MAX(row) from chuwei where  model='s' and com IN(SELECT com from com where id='"+num+"') UNION select MAX(row) from chuwei where  model='b' and com IN(SELECT com from com where id="+num+")");
 			rs = pst.executeQuery();
-			int k=0;
 			rs.next(); //遍历结果集
 			a[0]=Integer.parseInt(rs.getString(1));
 			rs.next();
@@ -241,6 +240,7 @@ public class Getinfo {
 
 		for(int i=0;i<sid.length;i++){
 			ssid[Integer.parseInt(sid[i])-1]="1";
+			System.out.println(sid[i] + " ");
 		}
 		String sztos=new String();
 		for(int i = 0;i<ssid.length;i++){   sztos+=ssid[i]; }
@@ -310,5 +310,39 @@ public class Getinfo {
 		}
 		System.out.println(a);
 		return a;
+	}
+
+	public static boolean checkrepeatedindatabase(int num, String[] code)
+	{
+		int[] summeter=getadrnum(num);
+		String[] metercode=new String[summeter[0]+summeter[1]];
+		Connection conn = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		int k=0;
+		try {
+			conn = DbManager.getConnection();
+			pst = conn.prepareStatement("select meter_code from chuwei where com IN(SELECT com from com where id="+num+") and ismeter = 1");
+			rs = pst.executeQuery();
+			
+			while(rs.next()){ //遍历结果集
+				  metercode[k]=rs.getString(1);
+				  k++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			DbManager.closeConnection(conn, pst, rs);
+		}
+		int i,j;
+		for(i=0;i<code.length;i++)
+		{
+			for(j=0;j<k;j++)
+			{
+				if(code[i].equals(metercode[j]))
+					return true;
+			}
+		}
+		return false;
 	}
 }

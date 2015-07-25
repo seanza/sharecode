@@ -64,8 +64,8 @@ public class OutselServlet extends HttpServlet {
 	    out.println(json);
 	    list.listIterator();  
 	    if(json.isEmpty()){  
-            System.out.println("json-null");  
-        }  
+            System.out.println("json-null");
+        }
         ListIterator  li = json.listIterator();  
         while(li.hasNext()){  
             System.out.println(li.next().toString());  

@@ -138,13 +138,28 @@ width: 140px;
 		  var a2=document.getElementById("text2").value;
 		  if(a1!="0"||a2!="0"){
               $.ajax({    
-                      url:'${pageContext.request.contextPath}/InboundServlet',
+                      url:'${pageContext.request.contextPath}/OutboundServlet',
                       data:{dan:a1,san:a2},
                       type:'post',    
                       cache:false,    
                       dataType:'text',
                       success: function(aa) {
-                    	  window.location.href="${pageContext.request.contextPath}/out2.jsp";
+                      	  if(aa == "成功")
+                    	      window.location.href="${pageContext.request.contextPath}/out2.jsp";
+                    	  else
+                    	  {
+                    	      var d = dialog({
+            	    		      				lock:true,
+            	    		       				title: '警告消息',
+            	    							content: '请求出库仪表数量大于现存仪表数量，请重新选择出库数量',
+            	    		 					okValue: '确定',
+            	    		    				ok: function () {
+            	    		    									location.reload(true);
+            	    		    			 					},
+            	    		    			    cancel: false,
+            	    						});
+            	    		  d.showModal();
+                    	  }
                       },
 
                       error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -185,17 +200,17 @@ width: 140px;
             VoiceObj.Speak("请分别选择两种表计数量", 1);
             function SpeakText()
             {
-            	VoiceObj.Speak("请打开柜门，按顺序在亮灯位置放表扫码", 1);
+            	VoiceObj.Speak("请打开柜门，按顺序在亮灯位置取表扫码", 1);
             }
             
             function SpeakTextses()
             {
-            	VoiceObj.Speak("入库成功，请关闭柜门", 1);
+            	VoiceObj.Speak("出库成功，请关闭柜门", 1);
             }
             
             function SpeakTextfal()
             {
-            	VoiceObj.Speak("入库失败，表位异常，请放回表计", 1);
+            	VoiceObj.Speak("出库失败，表位异常，请检查后重新进行操作", 1);
             }
            
         </SCRIPT>

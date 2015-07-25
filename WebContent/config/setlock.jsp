@@ -72,17 +72,14 @@ width: 140px;
     		   d.showModal();
     	}
     	else{
- 		   var d = dialog({
-	    		title: '消息',
-	    		content: '本周转柜设置成功，将返回设置页面',
-	    		 okValue: '确定',
-	    		 ok: function () {
-	    	    		window.location.href="${pageContext.request.contextPath}/config/setsel.jsp";
-	    		 },
-	    		 cancel: false,
-	    	});
-		   d.showModal();
-
+    			var d = dialog({
+    	    		title: '消息',
+    	    		content: '周转柜设置完成，将跳转至首页',
+    	    		 okValue: '确定',
+    	    		 ok: function () {window.location.href = "../n1.htm"},
+    	    		 cancel: false,
+    	    	});
+    		   d.showModal();
     	}
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {

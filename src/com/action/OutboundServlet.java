@@ -19,7 +19,7 @@ import com.sql.Setinfo;
 @WebServlet("/OutboundServlet")
 public class OutboundServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -31,8 +31,8 @@ public class OutboundServlet extends HttpServlet {
             throws ServletException, IOException {  
         doPost(req,resp);  
     }  
-  
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)  
+
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)  
             throws ServletException, IOException {  
         resp.setContentType("text/html;charset=UTF-8");  
         resp.setHeader("Cache-Control","no-cache");  
@@ -41,7 +41,7 @@ public class OutboundServlet extends HttpServlet {
         String dan= req.getParameter("dan");
         String san= req.getParameter("san");
         System.out.println(dan);
-	    int dcount=Integer.parseInt(dan);
+        int dcount=Integer.parseInt(dan);
 	    int scount=Integer.parseInt(san);
         System.out.println(dcount);
         Setinfo.deltemp();
@@ -65,10 +65,10 @@ public class OutboundServlet extends HttpServlet {
         	    }
         	}
          	System.out.println("跳转");
-         	req.getSession().setAttribute("mes", "1"); 
-         	out.println("成功");
+         	req.getSession().setAttribute("mes", "1");
+         	out.print("成功");
         }
-            else{out.println("失败");}
+            else{out.print("失败");}
       
 	}
 

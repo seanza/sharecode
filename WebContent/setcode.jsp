@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html  class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms no-csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" style=""><!--<![endif]--><!-- =========================================
     head
     ========================================== --><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -9,7 +10,7 @@
         ========================================== -->
         
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>智能周转柜</title>
+        <title>智能周转柜</title>
         <!-- =========================================
         Mobile Configurations
         ========================================== -->
@@ -36,6 +37,9 @@
                 <script type="text/javascript" src="css/jquery-1.11.0.min.js"></script>
         <script type="text/javascript" src="css/modernizr.custom.js"></script>
         <script src="dist/dialog-min.js"></script>
+        <jsp:include page="/include/jsfile.jsp" />
+        <jsp:include page="/include/head.jsp" />
+        <%request.setCharacterEncoding("UTF-8"); %>
 		<style type="text/css">
        .in1{
 display: block;
@@ -173,7 +177,7 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
                                     <!-- Portfolio -->
                                     <li>
                                         <a href="#" title="Portfolio" class="scrollto">
-                                           关于
+                                           关于
                                         </a>
                                     </li><!-- /Portfolio -->
 
@@ -198,12 +202,12 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 
                         <!-- section-title -->
                         <div class="section-title uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-fade" data-uk-scrollspy="{cls:'uk-animation-fade', delay:500}">
-                            <h1>选择入库表计数量</h1>
+                            <h1>请根据周转柜结构进行选择：</h1>
                         </div><!-- /section-title -->
 
                         <!-- section-desc -->
                         <div class="section-desc uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-fade" data-uk-scrollspy="{cls:'uk-animation-fade', delay:700}">
-                            <p>请根据表计类型选择相应的数量</p>
+                            <p>请选择单相表与三相表的个数</p>
                         </div><!-- /section-desc -->
 
                     </div><!-- /col-md-12 -->
@@ -221,7 +225,7 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
                              
                         </div>
                         <div class="col-md-5 aaa">
-                                <h1>选择单相表数量:</h1>
+                                <h1>单相表的个数为:</h1>
                         </div>
                        
                
@@ -270,7 +274,7 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
                              
                         </div>
                         <div class="col-md-5 aaa">
-                                <h1>选择三相表数量:</h1>
+                                <h1>三相表的个数为:</h1>
                         </div>
                        
                
@@ -304,7 +308,7 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 
                 <div class="juzhong">
 				<a class="btn btn-lg btn-nesto scrollto juzhong" id="button" title="View Portfolio" data-uk-scrollspy="{cls:&#39;uk-animation-slide-bottom&#39;, delay:500}">
-                               确  认
+                               确定
                             </a><!-- /btn-nesto -->
                 </div>
 
@@ -313,15 +317,16 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
            
            <div id="div2" style="display:block;">
 		   <div  class="panel panel-default w80">
-		   <div class="panel-heading">入库操作</div>
+		   <div class="panel-heading">智能周转柜</div>
 		<div id="dateMessage" class="maxhei">   
         <table id="tab1" class="table">   
-            <tr><td>位置号</td><td>行号</td><td>列号</td><td>型号</td><td>输入条码</td></tr>   
+            <tr><td>位置号</td><td>行号</td><td>列号</td><td>型号</td><td>位置条码</td></tr>   
         </table>   
         </div>   
 		</div>
+		
 		<div class="juzhong">
-		<a class="button button-royal button-raised  juzhong" id="button1">确认</a>
+		<a class="button button-royal button-raised  juzhong" id="button1">确定么？</a>
 		</div>
 		</div>
         </section>
@@ -349,26 +354,62 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
         <script type="text/javascript" src="css/jquery.cbpQTRotator.min.js"></script>
 		 
 		<script > 
-      $(document).ready(function(){
-    	  
+      
+    	  var dr=<%=session.getAttribute("drow")%>
+    	  var sr=<%=session.getAttribute("srow")%>
+    	  var ccc=<%=session.getAttribute("comn")%>
     	  var arrid=new Array();
           var str = "";
-          for (i=1;i<67;i++) {
-              str += "<tr><td>" + i + "</td><td><input name=aaa style='width:200px' />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a onclick='del(this)' class='button button-pill button-primary'>重新扫描</a></td></tr>";
-  			arrid[i-1]=i;
+          var model = "";
+          var row;
+          var col;
+          for (i=1;i<=(dr*8+sr*5);i++) {
+              if(i <= dr*8)
+              {
+                  model = "s";
+                  row = (i-i%8)/8+1;
+                  col = i%8;
+                  if(i%8==0)
+              	  {
+              	      row--;
+              	      col=8;
+                  }
+              }
+              else
+              {
+                  model = "b";
+                  row = ((i-dr*8)-(i-dr*8)%5)/5+dr+1;
+                  col = (i-dr*8)%5;
+                  if((i-dr*8)%5 == 0)
+                  {
+                      row --;
+                      col = 5;
+                  }
+              }
+              
+              str += "<tr><td>" + i + "</td><td>" + row + "</td><td>" + col + "</td><td>" + model + "</td><td><input name=aaa style='width:200px' />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a onclick='del(this)' class='button button-pill button-primary'>重新扫描</a></td></tr>";
+  			  arrid[i-1]=i;
           }
           $("tbody").append(str);
           var dlall=document.getElementsByName('aaa');        
           for(i=0;i<dlall.length;i++){
           	dlall[i].id='inp'+i;
           }
+          var cccc = ccc.toString();
           var d = dialog({
-        		title: '消息',
-        		content: '请打开柜门，逐个扫描位置条码',
-        		 okValue: '确定',
-        		 ok: function () {},
-        		 cancel: false,
-        	});
+            	   title: '消息',
+            	   content: '请打开柜门，并根据周转柜的结构情况一次扫描位置条码',
+            	   okValue: '确定',
+            	   ok: function () {},
+            	   cancel: false,
+            	 });
+          $.ajax({
+	          url:'${pageContext.request.contextPath}/OpendoorServlet',
+	          data:{id:cccc},
+	          type:'post',
+	          cache:false,
+	          dataType:'json'
+          });
       	  d.showModal();
 
       	 $("#button1").click(function(){
@@ -380,20 +421,33 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
    		  var scode=arrcode.join(",");
    		  var sid=arrid.join(",");
        $.ajax({    
-       url:'SetchuweicodeServlet',
+       url:'${pageContext.request.contextPath}/SetchuweicodeServlet',
        data:{name:scode,password:sid},
        type:'post',    
        cache:false,    
-       dataType:'json',
+       dataType:'text',
        success: function (a) {
-       	if(a=="成功"){
+        if(a=="条码重复"){
+	        var d = dialog({
+	           		lock:true,
+	           		title: '警告',
+	           		content: '周转柜的位置条码出现重复，请检查后重新进行条码的扫描工作',
+	           		 okValue: '确定',
+	           		    ok: function () {
+	           		    	 self.location.reload();
+	           		    },
+	           		    cancel: false,
+	           	});
+	           	d.showModal();
+        }
+       	else if(a=="成功"){
        		var d = dialog({
            		lock:true,
-           		title: '消息',
-           		content: '成功，系统将回到首页',
+           		title: '提示',
+           		content: '成功设置本周转柜的位置条码，将跳转至DI/DO设置页面',
            		 okValue: '确定',
            		    ok: function () {
-           		    	 window.location.href="n3.htm";
+           		    	 window.location.href="./config/setlock.jsp";
            		    },
            		    cancel: false,
            	});
@@ -409,42 +463,38 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
            alert(textStatus);
        },
        complete: function(XMLHttpRequest, textStatus) {
-           this; // 调用本次AJAX请求时传递的options参数
+           this; // è°ç¨æ¬æ¬¡AJAXè¯·æ±æ¶ä¼ éçoptionsåæ°
        }
        });
    });
 
 
-
-   });
 </script>   
 <script type="text/javascript">
 var keystring = "";//记录按键的字符串
 var linshi="";
 var a=1;
 //var ab = document.getElementById("tab1").rows.length;
-function keypress(e)
-　　{
-　　var currKey=0,CapsLock=0,e=e||event;
-　　currKey=e.keyCode||e.which||e.charCode;
-　　CapsLock=currKey>=65&&currKey<=90;
-  var table =document.getElementById("tab1");
-   var rows = table.rows.length;
+function keypress(e){
+		var currKey=0,CapsLock=0,e=e||event;
+		currKey=e.keyCode||e.which||e.charCode;
+		CapsLock=currKey>=65&&currKey<=90;
+		var table =document.getElementById("tab1");
+		var rows = table.rows.length;
 	
-　　switch(currKey)
-　　{
-　　　　//屏蔽了退格、制表、回车、空格、方向键、删除键
-　　　　case 8: case 9:case 32:case 37:case 38:case 39:case 40:case 46:keyName = "";break;
-　　　　default:keyName = String.fromCharCode(currKey); break;
-　　}
-　　keystring += keyName;
-   if(currKey==13)
-	{
+		switch(currKey)
+		{
+			//屏蔽了退格、制表、回车、空格、方向键、删除键
+			case 8: case 9:case 32:case 37:case 38:case 39:case 40:case 46:keyName = "";break;
+			default:keyName = String.fromCharCode(currKey); break;}
+		keystring += keyName;
+   		if(currKey==13)
+		{
 		   for ( var i = 0; i < rows+2; i++) //循环到arr数组的长度减一，最后一个就不用循环了 
 		{
 		  //alert(document.getElementById('inp'+i).value==keystring);   
 		  if(document.getElementById('inp'+i).value==keystring){
-			  alert("重复");
+			  alert("éå¤");
 		  }
 		  else if(document.getElementById('inp'+i).value==""){
 			  if(linshi!=keystring){
@@ -461,7 +511,7 @@ function keypress(e)
 }
 function keyup(e)
 {
-　　//document.getElementById("content").innerHTML=keystring;
+//document.getElementById("content").innerHTML=keystring;
     //document.getElementById("aa1").value=keystring;
 	currKey=e.keyCode||e.which||e.charCode;
 	//if(currKey==13){
@@ -479,20 +529,20 @@ document.onkeyup =keyup;
 		  }
 		</script >
 		<SCRIPT LANGUAGE="JavaScript">
-            var VoiceObj = new ActiveXObject("Sapi.SpVoice"); //创建一个朗读人
+            var VoiceObj = new ActiveXObject("Sapi.SpVoice"); //åå»ºä¸ä¸ªæè¯»äºº
             VoiceObj.Rate=-1;
-            VoiceObj.Speak("请依次扫描位置条码", 1);
+            VoiceObj.Speak("è¯·ä¾æ¬¡æ«æä½ç½®æ¡ç ", 1);
             function SpeakText()
             {
-            	VoiceObj.Speak("请打开柜门，按顺序在亮灯位置放表扫码", 1);
+            	VoiceObj.Speak("è¯·æå¼æé¨ï¼æé¡ºåºå¨äº®ç¯ä½ç½®æ¾è¡¨æ«ç ", 1);
             }
             function SpeakTextses()
             {
-            	VoiceObj.Speak("入库成功，请关闭柜门", 1);
+            	VoiceObj.Speak("å¥åºæåï¼è¯·å³é­æé¨", 1);
             }
             function SpeakTextfal()
             {
-            	VoiceObj.Speak("入库失败，表位异常，请放回表计", 1);
+            	VoiceObj.Speak("å¥åºå¤±è´¥ï¼è¡¨ä½å¼å¸¸ï¼è¯·æ¾åè¡¨è®¡", 1);
             }
            
         </SCRIPT>

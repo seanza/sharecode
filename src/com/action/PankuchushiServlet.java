@@ -47,7 +47,7 @@ public class PankuchushiServlet extends HttpServlet {
 		switch (back)
     	{
     	   case -9:
-       		list.add(String.valueOf(back));
+       		list.add(/*String.valueOf(back)*/"3");
        	    jsons = JSONArray.fromObject(list);
        		out.println(jsons);
        		list.clear();

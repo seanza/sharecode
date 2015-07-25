@@ -52,13 +52,24 @@ public class InsaveServlet extends HttpServlet {
 		resp.setCharacterEncoding("utf-8");
         String scode= req.getParameter("scode");
         String sid = req.getParameter("sid");
+        int repeated = 0;
         int id = Integer.parseInt(req.getParameter("id"));
 		String[] stringcode;
 		String[] stringid;
+		List<String> list = new ArrayList<String>();
+		JSONArray jsons=new JSONArray();
+		PrintWriter out=resp.getWriter();
+		int[] getrow=Getinfo.getrownum(id);
+		int sumrownum=getrow[1];
+		int[] getre=new int[sumrownum];
+		String com= Getinfo.getcomname(id);
+		
 		if(scode.indexOf(",")>0){
 			stringcode= scode.split(","); 
 			stringid= sid.split(",");
 			System.out.println("入库数量大于一");
+			if(!CheckIfCodeRepeated(id,stringcode))
+			    repeated = 1;
 		}
 		else {
 			stringcode=new String[1];
@@ -68,69 +79,101 @@ public class InsaveServlet extends HttpServlet {
 			stringid[0]=sid;
 			System.out.println("入库数量为一："+stringid[0]);
 		}
-		List<String> list = new ArrayList<String>();
-		JSONArray jsons=new JSONArray();
-		PrintWriter out=resp.getWriter();
-		int[] getrow=Getinfo.getrownum(id);
-		int sumrownum=getrow[1];
-		int[] getre=new int[sumrownum];
-		String[] str=Getinfo.getallismeter(id,stringid);
-		System.out.println("数据库操作后应返回："+Arrays.toString(str));
-		for(int i=0;i<sumrownum;i++){
-		  byte[] di= Aboutbyte.getdi(i+1);
-		  getre[i]=By(di,Aboutbyte.binaryString2hexString(str[i]),Getinfo.getcomname(id));
-		}
-		int back=0;
-		for(int i=0;i<getre.length;i++){
-			back=back+getre[i];
-		}
-		//back=7;
-		String com= Getinfo.getcomname(id);
-		System.out.println("监测串口返回back数据"+back);
-		//back=9;    //test data
-		//sumrownum=8;    //test data
-		if(back==sumrownum){
-			updateChuweiList(stringcode,stringid,com);
-			Test b=new Test(); 
-			for(int i=1;i<sumrownum+1;i++){
-				b.openSerialPortb(Aboutbyte.offlight(i),com);
+		
+		if(repeated == 0)
+		{
+			String[] str=Getinfo.getallismeter(id,stringid);
+			System.out.println("数据库操作后应返回："+Arrays.toString(str));
+			for(int i=0;i<sumrownum;i++){
+			  byte[] di= Aboutbyte.getdi(i+1);
+			  getre[i]=By(di,Aboutbyte.binaryString2hexString(str[i]),Getinfo.getcomname(id));
 			}
-    		int a=Getinfo.getifnext(id);
-    		if(a==1){
-    			list.add("继续");
-    			req.getSession().setAttribute("mes", id+1); 
-    		}
-    		else{
-    			list.add("成功");
-    		    Setinfo.deltemp();
-    		}
-    	    jsons = JSONArray.fromObject(list);
-    		out.println(jsons);
-    		list.clear();	
+			int back=0;
+			for(int i=0;i<getre.length;i++){
+				back=back+getre[i];
+			}
+			back=8;
+			System.out.println("监测串口返回back数据"+back);
+			//back=9;    //test data
+			//sumrownum=8;    //test data
+			if(back==sumrownum){
+				updateChuweiList(stringcode,stringid,com);
+				Test b=new Test(); 
+				for(int i=1;i<sumrownum+1;i++){
+					b.openSerialPortb(Aboutbyte.offlight(i),com);
+				}
+	    		int a=Getinfo.getifnext(id);
+	    		if(a==1){
+	    			list.add("继续");
+	    			req.getSession().setAttribute("mes", id+1); 
+	    		}
+	    		else{
+	    			list.add("成功");
+	    		    Setinfo.deltemp();
+	    		}
+	    	    jsons = JSONArray.fromObject(list);
+	    		out.println(jsons);
+	    		list.clear();	
+			}
+			else if(back==-sumrownum){
+				list.add("串口通讯错误");
+				Setinfo.deltemp();
+				Test b=new Test();
+				for(int i=1;i<sumrownum+1;i++){
+					b.openSerialPortb(Aboutbyte.offlight(i),com);
+				}
+				jsons = JSONArray.fromObject(list);
+				out.println(jsons);
+				list.clear();
+			}
+			else {
+				list.add("失败，储位异常，存在错误，请将初为保持出库前状态");
+				Test b=new Test();
+				for(int i=1;i<sumrownum+1;i++){
+					b.openSerialPortb(Aboutbyte.offlight(i),com);
+				}
+				Setinfo.deltemp();
+				jsons = JSONArray.fromObject(list);
+				out.println(jsons);
+				list.clear();
+			}
 		}
-		else if(back==-sumrownum){
-			list.add("串口通讯错误");
+		else
+		{
+			list.add("条码重复");
 			Setinfo.deltemp();
 			Test b=new Test();
 			for(int i=1;i<sumrownum+1;i++){
 				b.openSerialPortb(Aboutbyte.offlight(i),com);
 			}
-			jsons = JSONArray.fromObject(list);
-			out.println(jsons);
-			list.clear();
-		}
-		else {
-			list.add("失败，储位异常，存在错误，请将初为保持出库前状体");
-			Test b=new Test();
-			for(int i=1;i<sumrownum+1;i++){
-				b.openSerialPortb(Aboutbyte.offlight(i),com);
-			}
-			Setinfo.deltemp();
 			jsons = JSONArray.fromObject(list);
 			out.println(jsons);
 			list.clear();
 		}
 	}
+    public static boolean CheckIfCodeRepeated(int num,String[] code)
+    {
+    	int i, j;
+    	for(i=0;i<code.length-1;i++)
+    	{
+    		for(j=i+1;j<code.length;j++)
+    		{
+    			if(code[i].equals(code[j]))
+    			{
+    				System.out.println("YEMIANchongfu!");
+    				return false;
+    			}
+    				
+    		}
+    	}
+    	if(Getinfo.checkrepeatedindatabase(num, code))
+    	{
+    		System.out.println("SHUJUKUchongfu!");
+    		return false;
+    	}
+    		
+    	return true;
+    }
     public static void updateChuweiList(String[] sql1,String[] sql2,String com){
 		Connection conn = null;
 		PreparedStatement pst = null;

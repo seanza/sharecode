@@ -45,7 +45,8 @@ public class SetrowServlet extends HttpServlet {
 		resp.setCharacterEncoding("utf-8");
         String dan= req.getParameter("dan");
         String san= req.getParameter("san");
-        System.out.println(dan);
+        String comname=Getinfo.getlastcom();
+        System.out.println("dan" +dan);
         Connection conn = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -55,13 +56,34 @@ public class SetrowServlet extends HttpServlet {
 		try {
 			conn = DbManager.getConnection();
 			conn.setAutoCommit(false);
-            String comname=Getinfo.getlastcom();
             pst = conn.prepareStatement("call setchu(?,?,?)");
-            pst.setString(1, dan);  
-            pst.setString(2, san);  
-            pst.setString(3, comname); 
+            pst.setString(1, dan);
+            pst.setString(2, san);
+            pst.setString(3, comname);
             pst.executeUpdate();
 			conn.commit();
+			req.getSession().setAttribute("drow", dan);
+			req.getSession().setAttribute("srow", san);
+
+		} catch (SQLException e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally{
+			DbManager.closeConnection(conn, pst, rs);
+		} 
+		try {
+			conn = DbManager.getConnection();
+			conn.setAutoCommit(false);
+            pst = conn.prepareStatement("select id from com where com = '"+comname+"'");
+            rs = pst.executeQuery();
+            rs.next();
+            String id = rs.getString(1);
+			conn.commit();
+			req.getSession().setAttribute("comn", id);
 			out.println("1");
 		} catch (SQLException e) {
 			try {
@@ -74,7 +96,7 @@ public class SetrowServlet extends HttpServlet {
 			e.printStackTrace();
 		}finally{
 			DbManager.closeConnection(conn, pst, rs);
-		}        
+		} 
 	}
 
 }

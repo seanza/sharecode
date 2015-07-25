@@ -131,7 +131,8 @@ width: 140px;
 			<footer class="footer">
 		        <h1>Footer</h1>
 		   </footer>
-		   <script > 
+</body>
+		   <script> 
       $(document).ready(function(){
 	  $("#button").click(function(){
 		  var a1=document.getElementById("text1").value;
@@ -144,7 +145,22 @@ width: 140px;
                       cache:false,    
                       dataType:'text',
                       success: function(aa) {
-                    	  window.location.href="${pageContext.request.contextPath}/in2.jsp";
+                          if(aa == "成功")
+                    	      window.location.href="${pageContext.request.contextPath}/in2.jsp";
+                    	  else
+                    	  {
+                    	      var d = dialog({
+            	    		      				lock:true,
+            	    		       				title: '警告消息',
+            	    							content: '请求入库仪表数量大于可放仪表数量，请重新选择入库数量',
+            	    		 					okValue: '确定',
+            	    		    				ok: function () {
+            	    		    									location.reload(true);
+            	    		    			 					},
+            	    		    			    cancel: false,
+            	    						});
+            	    		  d.showModal();
+                    	  }
                       },
 
                       error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -178,9 +194,10 @@ width: 140px;
 function del(obj){   
 obj.parentNode.firstChild.value="";   
 }
-var VoiceObj = new ActiveXObject("Sapi.SpVoice");
-VoiceObj.Rate=-1;
-VoiceObj.Speak("请分别选择两种表计数量",1);
+</script>
+<SCRIPT LANGUAGE="JavaScript">
+	var VoiceObj = new ActiveXObject("Sapi.SpVoice");
+	VoiceObj.Rate=-1;
+	VoiceObj.Speak("请分别选择两种表计数量",1);
 </SCRIPT>
-</body>
 </html>

@@ -72,9 +72,9 @@ public class InboundServlet extends HttpServlet {
         	}
          	System.out.println("跳转");
          	req.getSession().setAttribute("mes", "1"); 
-         	out.println("成功");
+         	out.print("成功");
         }
-            else{out.println("失败");}
+            else{out.print("失败");}
       
 	}
 

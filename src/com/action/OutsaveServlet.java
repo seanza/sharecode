@@ -53,12 +53,23 @@ public class OutsaveServlet extends HttpServlet {
         String scode= req.getParameter("scode");
         String sid = req.getParameter("sid");
         int id = Integer.parseInt(req.getParameter("id"));
+        int repeated = 0;
 		String[] stringcode;
 		String[] stringid;
+		List<String> list = new ArrayList<String>();
+		JSONArray jsons=new JSONArray();
+		PrintWriter out=resp.getWriter();
+		int[] getrow=Getinfo.getrownum(id);
+		int sumrownum=getrow[1];
+		int[] getre=new int[sumrownum];
+		String com= Getinfo.getcomname(id);
+		
 		if(scode.indexOf(",")>0){
-			stringcode= scode.split(","); 
+			stringcode= scode.split(",");
 			stringid= sid.split(",");
 			System.out.println("出库数量大于一");
+			if(!CheckIfCodeRepeated(id,stringcode))
+			    repeated = 1;
 		}
 		else {
 			stringcode=new String[1];
@@ -68,55 +79,82 @@ public class OutsaveServlet extends HttpServlet {
 			stringid[0]=sid;
 			System.out.println("出库数量为一："+stringid[0]);
 		}
-		List<String> list = new ArrayList<String>();
-		JSONArray jsons=new JSONArray();
-		PrintWriter out=resp.getWriter();
-		int[] getrow=Getinfo.getrownum(id);
-		int sumrownum=getrow[1];
-		int[] getre=new int[sumrownum];
-		String[] str=Getinfoout.getallismeter(id,stringid);
-		for(int i=0;i<sumrownum;i++){
-		  byte[] di= Aboutbyte.getdi(i+1);
-		  getre[i]=By(di,Aboutbyte.binaryString2hexString(str[i]),Getinfo.getcomname(id));
-		}
-		int back=0;
-		for(int i=0;i<getre.length;i++){
-			back=back+getre[i];
-		}
-		//back=7;
-		String com= Getinfo.getcomname(id);
-		System.out.println("监测串口返回back数据"+back);
-		if(back==sumrownum){
-			updateChuweiList(stringcode,stringid,com);
-			Test b=new Test(); 
-			for(int i=1;i<sumrownum+1;i++){
-				b.openSerialPortb(Aboutbyte.offlight(i),com);
+		if(repeated == 0)
+		{
+			String[] str=Getinfoout.getallismeter(id,stringcode);
+			if(str[0].equals("unmatched meter remaining"))
+			{
+				Setinfo.deltemp();
+				list.add("条码不存在");
+				jsons = JSONArray.fromObject(list);
+	    		out.println(jsons);
+	    		list.clear();
 			}
-    		int a=Getinfo.getifnext(id);
-    		if(a==1){
-    			list.add("继续");
-    			req.getSession().setAttribute("mes", id+1); 
-    		}
-    		else{
-    			list.add("成功");
-    		    Setinfo.deltemp();
-    		}
-    	    jsons = JSONArray.fromObject(list);
-    		out.println(jsons);
-    		list.clear();	
-		}
-		else if(back==-sumrownum){
-			list.add("串口通讯错误");
-			Test b=new Test();
-			for(int i=1;i<sumrownum+1;i++){
-				b.openSerialPortb(Aboutbyte.offlight(i),com);
+			else if(str[0].equals("unmatched s or b meter number"))
+			{
+				Setinfo.deltemp();
+				list.add("电表数量不匹配");
+				jsons = JSONArray.fromObject(list);
+	    		out.println(jsons);
+	    		list.clear();
 			}
-			jsons = JSONArray.fromObject(list);
-			out.println(jsons);
-			list.clear();
+			else
+			{
+				for(int i=0;i<sumrownum;i++){
+				  byte[] di= Aboutbyte.getdi(i+1);
+				  getre[i]=By(di,Aboutbyte.binaryString2hexString(str[i]),Getinfo.getcomname(id));
+				}
+				int back=0;
+				for(int i=0;i<getre.length;i++){
+					back=back+getre[i];
+				}
+				back=8;
+				System.out.println("监测串口返回back数据"+back);
+				if(back==sumrownum){
+					updateChuweiList(stringcode,stringid,com);
+					Test b=new Test(); 
+					for(int i=1;i<sumrownum+1;i++){
+						b.openSerialPortb(Aboutbyte.offlight(i),com);
+					}
+		    		int a=Getinfo.getifnext(id);
+		    		if(a==1){
+		    			list.add("继续");
+		    			req.getSession().setAttribute("mes", id+1); 
+		    		}
+		    		else{
+		    			list.add("成功");
+		    		    Setinfo.deltemp();
+		    		}
+		    	    jsons = JSONArray.fromObject(list);
+		    		out.println(jsons);
+		    		list.clear();	
+				}
+				else if(back==-sumrownum){
+					list.add("串口通讯错误");
+					Test b=new Test();
+					for(int i=1;i<sumrownum+1;i++){
+						b.openSerialPortb(Aboutbyte.offlight(i),com);
+					}
+					jsons = JSONArray.fromObject(list);
+					out.println(jsons);
+					list.clear();
+				}
+				else {
+					list.add("失败，储位异常，存在错误，请将储位保持出库前状态");
+					Test b=new Test();
+					for(int i=1;i<sumrownum+1;i++){
+						b.openSerialPortb(Aboutbyte.offlight(i),com);
+					}
+					jsons = JSONArray.fromObject(list);
+					out.println(jsons);
+					list.clear();
+				}
+			}
 		}
-		else {
-			list.add("失败，储位异常，存在错误，请将初为保持出库前状体");
+		else
+		{
+			list.add("条码重复");
+			Setinfo.deltemp();
 			Test b=new Test();
 			for(int i=1;i<sumrownum+1;i++){
 				b.openSerialPortb(Aboutbyte.offlight(i),com);
@@ -126,6 +164,25 @@ public class OutsaveServlet extends HttpServlet {
 			list.clear();
 		}
 	}
+    
+    public static boolean CheckIfCodeRepeated(int num,String[] code)
+    {
+    	int i, j;
+    	for(i=0;i<code.length-1;i++)
+    	{
+    		for(j=i+1;j<code.length;j++)
+    		{
+    			if(code[i].equals(code[j]))
+    			{
+    				System.out.println("YEMIANchongfu!");
+    				return false;
+    			}
+    		}
+    	}
+    		
+    	return true;
+    }
+    
     public static void updateChuweiList(String[] sql1,String[] sql2,String com){
 		Connection conn = null;
 		PreparedStatement pst = null;
@@ -135,9 +192,8 @@ public class OutsaveServlet extends HttpServlet {
 			conn.setAutoCommit(false);
 			for(int i=0;i<sql1.length;i++){
 			String mcode=sql1[i];
-			int id=Integer.parseInt(sql2[i]);
-			pst = conn.prepareStatement("update chuwei set meter_code =Null WHERE id='"+id+"' and com='"+com+"'");
-			int x=pst.executeUpdate();
+			pst = conn.prepareStatement("update chuwei set meter_code =Null WHERE meter_code ='"+mcode+"' and com='"+com+"'");
+			pst.executeUpdate();
 			}
 			conn.commit();
 		} catch (SQLException e) {

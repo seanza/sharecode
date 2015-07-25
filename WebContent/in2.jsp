@@ -126,7 +126,7 @@ width: 140px;
             		var d = dialog({
                 		lock:true,
                 		title: '消息',
-                		content: '成功，系统将回到首页',
+                		content: '入库成功，系统将回到首页',
                 		 okValue: '确定',
                 		    ok: function () {
                 		    	 window.location.href="n3.htm";
@@ -147,6 +147,46 @@ width: 140px;
                 		    cancel: false,
                 	});
                 	d.showModal();
+            	}
+            	else if(a == "条码重复"){
+            		var d = dialog({
+                		lock:true,
+                		title: '提示',
+                		content: '扫描条码存在重复，将回到上一页面重新开始本次入库',
+                		 okValue: '确定',
+                		    ok: function () {
+                		    	$.ajax({    
+	                     	            url:'CancelServlet',
+	                     	            data:{set:id},
+	                     	            type:'post',    
+	                     	            cache:false,    
+	                     	            dataType:'json',
+	                     	        });
+	                		    	window.location.href = "${pageContext.request.contextPath}/in1.jsp";
+                		    },
+                		    cancel: false,
+                	});
+                	d.showModal();
+            	}
+            	else if(a=="串口通讯错误"){
+	            	var d = dialog({
+	                		lock:true,
+	                		title: '消息',
+	                		content: '与周转柜串口通信出现问题，将取消本次入库',
+	                		 okValue: '确定',
+	                		    ok: function () {
+		                		    $.ajax({    
+	                     	            url:'CancelServlet',
+	                     	            data:{set:id},
+	                     	            type:'post',    
+	                     	            cache:false,    
+	                     	            dataType:'json',
+	                     	        });
+	                		    	window.location.href="n3.htm";
+	                		    },
+	                		    cancel: false,
+	                	});
+	                d.showModal();
             	}
             	else{
             		var d = dialog({

@@ -12,4 +12,4 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/css/jquery.fancybox-media.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/css/jquery.fitvids.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/css/jquery.cbpQTRotator.min.js"></script>
-        <script type="text/javascript"src="${pageContext.request.contextPath}/dist/dialog-min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/dist/dialog-min.js"></script>

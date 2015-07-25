@@ -14,7 +14,7 @@ public class Chuwei {
 
 
 	public Chuwei(){
-		this.id = id;
+		/*this.id = id;
 		this.adr_id = adr_id;
 		this.row = row;
 		this.col = col;
@@ -23,7 +23,8 @@ public class Chuwei {
 		this.isUseful = isUseful;
 		this.ismeter = ismeter;
 		this.metercode = metercode;
-		this.com = com;
+		this.com = com;*/
+		super();
 	}
 	
 	public int getId() {

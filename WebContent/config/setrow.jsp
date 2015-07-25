@@ -3,6 +3,7 @@
 <html>
 <jsp:include page="/include/jsfile.jsp" />
 <jsp:include page="/include/head.jsp" />
+<%request.setCharacterEncoding("UTF-8"); %>
 <style>
 .button-circle.button-giant, .button-box.button-giant, .button-square.button-giant {
 width: 140px;
@@ -153,7 +154,7 @@ width: 140px;
 		                   		 d.showModal();
 		                   	}
 		                   	else{
-		                   		window.location.href="${pageContext.request.contextPath}/config/setlock.jsp";
+		                   		window.location.href="${pageContext.request.contextPath}/setcode.jsp";
 		                   	}
 		                   	
 		                   },

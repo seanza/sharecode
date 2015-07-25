@@ -61,7 +61,7 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 		   <div class="panel-heading">盘库操作</div>
 		<div id="dateMessage" class="maxhei">   
         <table id="tab1" class="table">   
-            <tr><td>位置号</td><td>输入条码</td><td>输入条码</td></tr>   
+            <tr><td>位置号</td><td>输入位置条码</td><td>输入电表条码</td></tr>   
         </table>   
         </div>   
             
@@ -69,7 +69,7 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
          
 		</div>
 		<div class="juzhong">
-		<button class="button button-royal button-raised  juzhong" id="button1">确认入库</button>
+		<button class="button button-royal button-raised  juzhong" id="button1">确认盘库操作</button>
 		</div>
 		</div>
         </section>
@@ -125,7 +125,7 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     		}
         var str = "";
         for (i=0;i<num;i++) {
-            str += "<tr><td>" + (i+1) + "</td><td><input name=aaa style='width:200px'>&nbsp&nbsp&nbsp<input name=aaa style='width:200px'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a onclick='del(this)' class='button button-pill button-primary'>重新扫描</a></td></tr>";
+            str += "<tr><td>" + (i+1) + "</td><td><input name=aaa style='width:200px'></td><td><input name=aaa style='width:200px'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td><td><a onclick='del(this)' class='button button-pill button-primary'>重新扫描</a></td></tr>";
 			arrid[i]=i;
         }
         $("tbody").append(str);
@@ -202,7 +202,33 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     cache:false,    
     dataType:'json',
     success: function (a) {
-    	if(a=="成功"){
+    	if(a == "位置条码重复"){
+    		var d = dialog({
+        		lock:true,
+        		title: '警告',
+        		content: '位置条码发生重复，请检查后重新进行盘库扫描操作',
+        		 okValue: '确定',
+        		    ok: function () {
+        		    	 self.location.reload();
+        		    },
+        		    cancel: false,
+        	});
+        	d.showModal();
+    	}
+    	else if(a == "电表条码重复"){
+    	    var d = dialog({
+        		lock:true,
+        		title: '警告',
+        		content: '电表条码发生重复，请检查后重新进行盘库扫描操作',
+        		 okValue: '确定',
+        		    ok: function () {
+        		    	 self.location.reload();
+        		    },
+        		    cancel: false,
+        	});
+        	d.showModal();
+    	}
+    	else if(a=="成功"){
     		var d = dialog({
         		lock:true,
         		title: '消息',

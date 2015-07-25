@@ -21,7 +21,7 @@ width: 140px;
 		               <div id="dateMessage" class="maxhei">   
                        <table id="tab1" class="table">   
                      
-                      <tr><td>位置号</td><td>行号</td><td>列号</td><td>型号</td><td>输入条码</td></tr>   
+                      <tr><td>输入条码</td></tr>   
                        </table>   
         </div>   
 		</div>
@@ -32,8 +32,8 @@ width: 140px;
                     </div>
 					<div class="row">
 						<div class="col-sm-12 juzhong">
-                        <h2>session属性：<%=session.getAttribute("mes") %></h2>  
-                        <h2>request属性：<%=request.getAttribute("info") %></h2>  
+                        <h2>session属性：<%=session.getAttribute("mes") %></h2>
+                        <h2>request属性：<%=request.getAttribute("info") %></h2>
                         </div><!-- /col-md-12 -->
 						</div>
 					<div class="row mar">
@@ -50,7 +50,7 @@ width: 140px;
 		      var a=<%=session.getAttribute("mes")%>
               var id=a.toString();
               var arrid=new Array();
-              $.ajax( {    
+              $.ajax({    
             	    url:'${pageContext.request.contextPath}/OutselServlet',
             	    data:{id:id},
             	    type:'post',    
@@ -59,17 +59,17 @@ width: 140px;
             	    success: function (msg) {
             	        var str = "";
             	        for (i in msg) {
-            	            str += "<tr><td>" + msg[i].id + "</td><td>" + msg[i].row + "</td><td>" + msg[i].col + "</td><td>" + msg[i].model + "</td><td><input name=aaa style='width:200px'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button onclick='del(this)' class='button button-pill button-primary'>重新扫描</button></td></tr>";
+            	            str += "<tr><td><input name=aaa style='width:200px'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button onclick='del(this)' class='button button-pill button-primary'>重新扫描</button></td></tr>";
             				arrid[i]=msg[i].id;
             	        }
             	        $("tbody").append(str);
-            	        var dlall=document.getElementsByName('aaa');        
+            	        var dlall=document.getElementsByName('aaa');
             	        for(i=0;i<dlall.length;i++){
             	        	dlall[i].id='inp'+i;
             	        }
             	        var d = dialog({
             	    		title: '消息',
-            	    		content: '请打开柜门，逐个扫码放表，开始出库操作',
+            	    		content: '请打开柜门，逐个扫码，开始出库操作',
             	    		 okValue: '确定',
             	    		 ok: function () {},
             	    		 cancel: false,
@@ -106,12 +106,12 @@ width: 140px;
               
               
               
-              
+             
         	  $("#button1").click(function(){
         		  var arrcode= new Array();
         		  var dlall=document.getElementsByName('aaa');
                     for(i=0;i<dlall.length;i++){
-                	   arrcode[i]=document.getElementById('inp'+i).value;
+                	    arrcode[i]=document.getElementById('inp'+i).value;
                     }
         		  var scode=arrcode.join(",");
         		  var sid=arrid.join(",");
@@ -122,11 +122,47 @@ width: 140px;
             cache:false,    
             dataType:'json',
             success: function(a){
-            	if(a=="成功"){
+            	if(a == "电表数量不匹配"){
+            		var d = dialog({
+            			lock:true,
+            			title: '警告',
+            			content: '出库条码中三相表或单相表的个数不匹配，请确认后重新进行出库',
+            			okValue: '返回出库页面',
+            				ok: function(){
+            					window.location.href="${pageContext.request.contextPath}/out1.jsp"
+                			}
+            		});
+            		d.showModal();
+            	}
+            	else if(a == "条码重复"){
+            		var d = dialog({
+            			lock:true,
+            			title: '警告',
+            			content: '扫描条码存在重复，将回到上一页面重新开始本次出库',
+            			okValue: '返回出库页面',
+            				ok: function(){
+            					window.location.href="${pageContext.request.contextPath}/out1.jsp"
+                			}
+            		});
+            		d.showModal();
+            	}
+                else if(a == "条码不存在"){
+                	var d = dialog({
+                		lock:true,
+                		title: '警告',
+                		content: '输入条码不存在，将回到上一页面重新进行出库操作',
+                		okValue: '返回出库页面',
+                			ok: function(){
+                				window.location.href="${pageContext.request.contextPath}/out1.jsp"
+                			}
+                	});
+                	d.showModal();
+                }
+            	else if(a=="成功"){
             		var d = dialog({
                 		lock:true,
                 		title: '消息',
-                		content: '成功，系统将回到首页',
+                		content: '出库成功，系统将回到首页',
                 		 okValue: '确定',
                 		    ok: function () {
                 		    	 window.location.href="n3.htm";
@@ -152,8 +188,8 @@ width: 140px;
             		var d = dialog({
                 		lock:true,
                 		title: '消息',
-                		content: '失败，储位异常，存在错误，请将储位保持出库前状态点击取消入库或点击进入盘库',
-                		okValue: '取消入库',
+                		content: '失败，储位异常，存在错误，请将储位保持出库前状态点击取消出库或点击进入盘库',
+                		okValue: '取消出库',
                 		    ok: function () {
                 		    	 $.ajax({    
                      	            url:'CancelServlet',

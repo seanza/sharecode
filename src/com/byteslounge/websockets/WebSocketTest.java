@@ -6,17 +6,23 @@ import java.io.IOException;
 
 
 
+
+
+
+import javax.servlet.http.HttpSession;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import com.rxtx.Aboutbyte;
 import com.rxtx.Modbus;
 import com.serotonin.io.serial.SerialParameters;
 import com.serotonin.modbus4j.ModbusFactory;
 import com.serotonin.modbus4j.ModbusMaster;
 import com.serotonin.modbus4j.exception.ModbusInitException;
+import com.sql.Getinfo;
 @ServerEndpoint("/websocket")
 public class WebSocketTest {
 	private final static int SLAVE_ADDRESS=1;
@@ -25,33 +31,20 @@ public class WebSocketTest {
   @OnMessage
   public void onMessage(String message, Session session)
     throws IOException, InterruptedException {
-	  SerialParameters serialParameters = new SerialParameters();
-      //设定MODBUS通讯的串行口
-      serialParameters.setCommPortId("COM4");
-      //设定成无奇偶校验
-      serialParameters.setParity(0);
-      //设定成数据位是8位
-      serialParameters.setDataBits(8);
-      //设定为1个停止位
-      serialParameters.setStopBits(1);
-      serialParameters.setPortOwnerName("Numb nuts");
-      //串行口上的波特率
-      serialParameters.setBaudRate(BAUD_RATE);
-      ModbusFactory modbusFactory = new ModbusFactory();
-      ModbusMaster master = modbusFactory.createRtuMaster(serialParameters);
+	  String com=Getinfo.getcomname(1);
+	  com=com.toUpperCase();
+
+      int[] di1=Getinfo.getcomdoor(1);
     // Print the client message for testing purposes
     System.out.println("Received: " + message);
-   
-    // Send the first message to the client
-    session.getBasicRemote().sendText("{type:'aa',text:'"+message+"'}");
-    // Send 3 messages to the client every 5 seconds
+    System.out.println("Received: " + com+di1[2]+di1[3]);
+    //session.getBasicRemote().sendText("{type:'aa',text:'"+message+"'}");
     int sentMessages = 0;
-    Boolean a = null;
-    while(sentMessages < 3){
+    Boolean a = null,b = null;
+    while(sentMessages<1){
       Thread.sleep(5000);
       try {
-          master.init();
-          a=Modbus.readDiscreteInputTestint(master,1,1,2);
+          byte[] door=Aboutbyte.getdi(di1[2]);
           System.out.println(a);
       } catch (ModbusInitException e) {
 		// TODO Auto-generated catch block
@@ -60,9 +53,22 @@ public class WebSocketTest {
       finally {
           master.destroy();
       }
+      if(b==a){
+    	  
+      }
+      else if(a==true){
+    	  //写日志
       session.getBasicRemote().
-        sendText("This is an intermediate server message. Count: "
+        sendText("开门"
           + a);
+      }
+      else{
+    	//写日志
+    	  session.getBasicRemote().
+          sendText("关门"
+            + a);
+      }
+      b = a;
     }
    
     // Send a final message to the client

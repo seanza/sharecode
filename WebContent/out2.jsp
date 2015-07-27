@@ -30,12 +30,6 @@ width: 140px;
 		<button class="button button-royal button-raised  juzuo" id="button2">取消操作</button>
 		</div>
                     </div>
-					<div class="row">
-						<div class="col-sm-12 juzhong">
-                        <h2>session属性：<%=session.getAttribute("mes") %></h2>
-                        <h2>request属性：<%=request.getAttribute("info") %></h2>
-                        </div><!-- /col-md-12 -->
-						</div>
 					<div class="row mar">
                         <div class="col-sm-12 juzhong">
 						    <button class="button button-box button-giant" id="button">确认</button>

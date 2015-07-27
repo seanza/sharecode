@@ -1,5 +1,7 @@
 eclipse.preferences.version=1
 encoding//WebContent/css/style.css=UTF-8
+encoding//WebContent/include/divhead.jsp=UTF-8
+encoding//WebContent/include/head.jsp=UTF-8
 encoding//WebContent/setcode.jsp=UTF-8
 encoding//src/com/action/PankuchushiServlet.java=UTF-8
 encoding//src/com/action/PankuquerenServlet.java=UTF-8

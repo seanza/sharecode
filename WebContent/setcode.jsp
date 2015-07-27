@@ -353,7 +353,56 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
         <script type="text/javascript" src="css/jquery.fitvids.js"></script>
         <script type="text/javascript" src="css/jquery.cbpQTRotator.min.js"></script>
 		 
-		<script > 
+		
+
+<script>
+var keystring = "";//记录按键的字符串
+var linshi="";
+var a=1;
+function keypress(e){
+	   var currKey=0,CapsLock=0,e=e||event;
+	   currKey=e.keyCode||e.which||e.charCode;
+	   CapsLock=currKey>=65&&currKey<=90;
+	   var table =document.getElementById("tab1");
+	   var rows = table.rows.length;
+	   switch(currKey)
+	   {
+	        //屏蔽了退格、制表、回车、空格、方向键、删除键
+	      case 8: case 9:case 32:case 37:case 38:case 39:case 40:case 46:keyName = "";break;
+	      default:keyName = String.fromCharCode(currKey); break;}
+	   keystring += keyName;
+
+	   if(currKey==13)
+		{
+			   for ( var i = 0; i < rows+2; i++) //循环到arr数组的长度减一，最后一个就不用循环了 
+			{
+			  if(document.getElementById('inp'+i).value==""){
+				  if(linshi!=keystring){
+	          document.getElementById('inp'+i).value=keystring;
+	          
+				  }
+			  linshi=keystring;
+			  keystring="";
+	          keyName="";
+			  break;
+	          }
+			 }
+		}
+	}
+	function keyup(e)
+	{
+		currKey=e.keyCode||e.which||e.charCode;
+	}
+	document.onkeypress=keypress;
+	document.onkeyup =keyup;
+	function del(obj){   
+		obj.parentNode.firstChild.value="";   
+		}
+	var VoiceObj = new ActiveXObject("Sapi.SpVoice");
+	VoiceObj.Rate=-1;
+	VoiceObj.Speak("请打开柜门，按顺序放表，扫码，完成后点击确认按钮",1);
+</script>
+<script > 
       
     	  var dr=<%=session.getAttribute("drow")%>
     	  var sr=<%=session.getAttribute("srow")%>
@@ -463,88 +512,57 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
            alert(textStatus);
        },
        complete: function(XMLHttpRequest, textStatus) {
-           this; // è°ç¨æ¬æ¬¡AJAXè¯·æ±æ¶ä¼ éçoptionsåæ°
+           this;
        }
        });
    });
-
-
-</script>   
-<script type="text/javascript">
+</script>
+<script>
 var keystring = "";//记录按键的字符串
 var linshi="";
 var a=1;
-//var ab = document.getElementById("tab1").rows.length;
 function keypress(e){
-		var currKey=0,CapsLock=0,e=e||event;
-		currKey=e.keyCode||e.which||e.charCode;
-		CapsLock=currKey>=65&&currKey<=90;
-		var table =document.getElementById("tab1");
-		var rows = table.rows.length;
-	
-		switch(currKey)
-		{
-			//屏蔽了退格、制表、回车、空格、方向键、删除键
-			case 8: case 9:case 32:case 37:case 38:case 39:case 40:case 46:keyName = "";break;
-			default:keyName = String.fromCharCode(currKey); break;}
-		keystring += keyName;
-   		if(currKey==13)
+	   var currKey=0,CapsLock=0,e=e||event;
+	   currKey=e.keyCode||e.which||e.charCode;
+	   CapsLock=currKey>=65&&currKey<=90;
+	   var table =document.getElementById("tab1");
+	   var rows = table.rows.length;
+	   switch(currKey)
+	   {
+	        //屏蔽了退格、制表、回车、空格、方向键、删除键
+	      case 8: case 9:case 32:case 37:case 38:case 39:case 40:case 46:keyName = "";break;
+	      default:keyName = String.fromCharCode(currKey); break;}
+	   keystring += keyName;
+
+	   if(currKey==13)
 		{
-		   for ( var i = 0; i < rows+2; i++) //循环到arr数组的长度减一，最后一个就不用循环了 
-		{
-		  //alert(document.getElementById('inp'+i).value==keystring);   
-		  if(document.getElementById('inp'+i).value==keystring){
-			  alert("éå¤");
-		  }
-		  else if(document.getElementById('inp'+i).value==""){
-			  if(linshi!=keystring){
-          document.getElementById('inp'+i).value=keystring;
-			  }
-		  linshi=keystring;
-		  keystring="";
-          keyName="";
-          //delinpval();
-		 break;
-          }
+			   for ( var i = 0; i < rows+2; i++) //循环到arr数组的长度减一，最后一个就不用循环了 
+			{
+			  if(document.getElementById('inp'+i).value==""){
+				  if(linshi!=keystring){
+	          document.getElementById('inp'+i).value=keystring;
+	          
+				  }
+			  linshi=keystring;
+			  keystring="";
+	          keyName="";
+			  break;
+	          }
+			 }
 		}
 	}
-}
-function keyup(e)
-{
-//document.getElementById("content").innerHTML=keystring;
-    //document.getElementById("aa1").value=keystring;
-	currKey=e.keyCode||e.which||e.charCode;
-	//if(currKey==13){
-      //     keystring="";
-        //   keyName="";
-		//{
-}
-document.onkeypress=keypress;
-document.onkeyup =keyup;
+	function keyup(e)
+	{
+		currKey=e.keyCode||e.which||e.charCode;
+	}
+	document.onkeypress=keypress;
+	document.onkeyup =keyup;
+	function del(obj){   
+		obj.parentNode.firstChild.value="";   
+		}
+	var VoiceObj = new ActiveXObject("Sapi.SpVoice");
+	VoiceObj.Rate=-1;
+	VoiceObj.Speak("请打开柜门，按顺序放表，扫码，完成后点击确认按钮",1);
 </script>
-<script >   
-		function del(obj)   
-		  {   
-		     obj.parentNode.firstChild.value="";   
-		  }
-		</script >
-		<SCRIPT LANGUAGE="JavaScript">
-            var VoiceObj = new ActiveXObject("Sapi.SpVoice"); //åå»ºä¸ä¸ªæè¯»äºº
-            VoiceObj.Rate=-1;
-            VoiceObj.Speak("è¯·ä¾æ¬¡æ«æä½ç½®æ¡ç ", 1);
-            function SpeakText()
-            {
-            	VoiceObj.Speak("è¯·æå¼æé¨ï¼æé¡ºåºå¨äº®ç¯ä½ç½®æ¾è¡¨æ«ç ", 1);
-            }
-            function SpeakTextses()
-            {
-            	VoiceObj.Speak("å¥åºæåï¼è¯·å³é­æé¨", 1);
-            }
-            function SpeakTextfal()
-            {
-            	VoiceObj.Speak("å¥åºå¤±è´¥ï¼è¡¨ä½å¼å¸¸ï¼è¯·æ¾åè¡¨è®¡", 1);
-            }
-           
-        </SCRIPT>
 </body>
 </html>

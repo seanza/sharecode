@@ -76,6 +76,10 @@ public class PankuquerenServlet extends HttpServlet {
 			System.out.println("up123"+stringA[0]);
 			System.out.println("up124"+stringB[0]);
 	    	updateChuweiList(stringA,stringB);
+	    	LogSaver ls = new LogSaver();
+	    	String uname = (String) req.getSession().getAttribute("uname");
+	    	String authority = (String) req.getSession().getAttribute("authority");
+			ls.saveinlog("inventory", uname, authority);
 	    	list.add("成功");
 	    	jsons = JSONArray.fromObject(list);
 	        out.println(jsons);

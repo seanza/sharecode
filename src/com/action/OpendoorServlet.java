@@ -59,6 +59,7 @@ public class OpendoorServlet extends HttpServlet {
         byte[] c2=Aboutbyte.offsinglelight(doorinfo[0], doorinfo[1]);
         String com= Getinfo.getcomname(id);
    	    d.openSerialPortb(c1,com);
+   	    
    	 try {
 			Thread.sleep(15000);
 			d.openSerialPortb(c2,com);

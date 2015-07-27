@@ -47,15 +47,21 @@ public class StudentServlet extends HttpServlet {
 		
 		List<Student> list = studentService.findName(new Student(userName,userPwd));
 		PrintWriter out = response.getWriter();
+		LogSaver ls = new LogSaver();
 		if(list.size()>0){
 			System.out.println(list.get(0).getGroup());
+			request.getSession().setAttribute("uname", userName);
 			if(list.get(0).getGroup().equals("admin")){
 				System.out.println(list.get(0).getGroup());
+				ls.saveinlog("login", userName, "(admin)");
+				request.getSession().setAttribute("authority", "admin");
 				out.print("<script>window.location.href='n3.htm'</script>");
 			}
 			if(list.get(0).getGroup().equals("user")){
 				System.out.println(list.get(0).getGroup());
-				out.print("<script>window.location.href='out1.htm'</script>");
+				ls.saveinlog("login", userName, "(user)");
+				request.getSession().setAttribute("authority", "user");
+				out.print("<script>window.location.href='out1.jsp'</script>");
 			}
 			//request.getSession().setAttribute("list", list);
 			//request.getRequestDispatcher("chapter1.jsp").forward(request, response);

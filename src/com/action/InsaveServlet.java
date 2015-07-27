@@ -109,6 +109,10 @@ public class InsaveServlet extends HttpServlet {
 	    		}
 	    		else{
 	    			list.add("成功");
+	    			LogSaver ls = new LogSaver();
+	    			String uname = (String) req.getSession().getAttribute("uname");
+	    			String authority = (String)req.getSession().getAttribute("authority");
+	    			ls.saveinlog("in", uname, authority);
 	    		    Setinfo.deltemp();
 	    		}
 	    	    jsons = JSONArray.fromObject(list);

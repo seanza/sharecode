@@ -10,6 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Date;
@@ -17,6 +19,10 @@ import java.util.Date;
 import javax.imageio.ImageIO;
 
 import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamResolution;
+
+import java.text.SimpleDateFormat; 
+
 import net.sf.json.JSONArray;
 
 /**
@@ -49,19 +55,28 @@ public class TakepicServlet extends HttpServlet {
 		resp.setCharacterEncoding("utf-8");
         String userName= req.getParameter("name");
         String userPwd = req.getParameter("password");
+        Dimension[] nonStandardResolutions = new Dimension[] {
+    			WebcamResolution.PAL.getSize(),
+    			WebcamResolution.HD720.getSize(),
+    			new Dimension(2000, 1000),
+    			new Dimension(1000, 500),
+    		};
         Webcam webcam = Webcam.getDefault();
+        webcam.setCustomViewSizes(nonStandardResolutions);
+		webcam.setViewSize(WebcamResolution.HD720.getSize());
 		webcam.open();
 		Date date=new Date();
-		long l=date.getTime();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd时间HH时mm分ss秒");
+		String st= dateFormat.format(date); 
 		BufferedImage image = webcam.getImage();
-		ImageIO.write(image, "PNG", new File("D:\\photo\\照片"+l+".png"));
+		ImageIO.write(image, "JPG", new File("D:\\photo\\日期"+st+".jpg"));
 		webcam.close();
 		List<String> list = new ArrayList<String>();
 		JSONArray jsons=new JSONArray();
 		PrintWriter out=resp.getWriter();
         list.add("成功");
     	jsons = JSONArray.fromObject(list);
-        out.print(jsons);
+        out.println(jsons);
     	list.clear();
 
 	}

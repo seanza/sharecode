@@ -5,46 +5,42 @@
 </head>
 <body>
   <div>
-    <input type="submit" value="Start" onclick="start()" />
+    <a href="javascript:void(0)" type="button" onclick='start()'>button</a>
   </div>
   <div id="messages"></div>
   <script type="text/javascript">
-    var webSocket =
-      new WebSocket("ws://"+ window.location.host+"/${pageContext.request.contextPath}/websocket");
- 
-    //连接发生错误的回调方法
-    webSocket.onerror = function(){
-        setMessageInnerHTML("error");
+    var webSocket = 
+      new WebSocket('ws://localhost:8088/zzg/websocket');
+    function start(){
+        webSocket.send('hello');
+        return false;
+      }
+    webSocket.onerror = function(event) {
+      onError(event)
     };
-     
-    //连接成功建立的回调方法
-    webSocket.onopen = function(event){
-        setMessageInnerHTML("open");
-    }
-     
-    //接收到消息的回调方法
-    webSocket.onmessage = function(){
-        setMessageInnerHTML(event.data);
-    }
-     
- 
+
+    webSocket.onopen = function(event) {
+      onOpen(event)
+    };
+
+    webSocket.onmessage = function(event) {
+      onMessage(event)
+    };
+
     function onMessage(event) {
-      document.getElementById('messages').innerHTML
+      document.getElementById('messages').innerHTML 
         += '<br />' + event.data;
     }
- 
+
     function onOpen(event) {
-      document.getElementById('messages').innerHTML
+      document.getElementById('messages').innerHTML 
         = 'Connection established';
     }
- 
+
     function onError(event) {
       alert(event.data);
     }
- 
-    function start() {
-      webSocket.send('hello');
-    }
+
   </script>
 </body>
 </html>

@@ -24,7 +24,6 @@ import javax.servlet.annotation.WebServlet;
 
 import com.model.Chuwei;
 import com.dao.*;
-import com.rxtx.Test;
 import com.sql.*;
 /**
  * Servlet implementation class SetcomServlet

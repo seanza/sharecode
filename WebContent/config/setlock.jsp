@@ -28,7 +28,7 @@ width: 140px;
                            <table id="tab1" class="table">   
                              <tr><td>名称</td><td>所用IO板序号</td><td>IO序号</td></tr>
                              <tr><td>门锁开关DO</td><td><input name=aaa id="lo1" style='width:80px'></td><td><input name=aaa id="lo2" style='width:80px'></td></tr> 
-                             <tr><td>门锁检测DI</td><td><input name=aaa id="li1" style='width:80px'></td><td><input name=aaa id="li2" style='width:80px'></td></tr> 
+                             <tr><td>接近开关</td><td><input name=aaa id="li1" style='width:80px'></td><td><input name=aaa id="li2" style='width:80px'></td></tr> 
                              <tr><td>门锁检测DI</td><td><input name=aaa id="li3" style='width:80px'></td><td><input name=aaa id="li4" style='width:80px'></td></tr> 
                            </table>  
                         </div><!-- /col-md-12 -->
@@ -70,16 +70,9 @@ width: 140px;
     	    		 cancel: false,
     	    	});
     		   d.showModal();
-    	}
-    	else{
-    			var d = dialog({
-    	    		title: '消息',
-    	    		content: '周转柜设置完成，将跳转至首页',
-    	    		 okValue: '确定',
-    	    		 ok: function () {window.location.href = "../n1.htm"},
-    	    		 cancel: false,
-    	    	});
-    		   d.showModal();
+    	       }
+    	      else{
+    		    window.location.href="${pageContext.request.contextPath}/setcode.jsp";
     	}
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {

@@ -19,8 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.dao.DbManager;
 import com.model.Chuwei;
-import com.rxtx.Test;
-import com.rxtx.Aboutbyte;
+import com.rxtx.Modbus;
 import com.sql.Getinfo;
 
 import net.sf.json.JSONArray;
@@ -79,7 +78,6 @@ public ArrayList<Chuwei> getChuweiList(int sql1,int sql2){
 		Connection conn = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
-		byte[] ToSer;
 		try {
 			conn = DbManager.getConnection();
 			conn.setAutoCommit(false);
@@ -98,12 +96,8 @@ public ArrayList<Chuwei> getChuweiList(int sql1,int sql2){
 				chuwei.setModel(model);
 				chuwei.setCom(com);
 				list.add(chuwei);
-				System.out.println(rs.getString(7));
-				ToSer=Aboutbyte.onlight(row,col);
-				System.out.println("串口发送数据："+Arrays.toString(ToSer));
-				System.out.println(chuwei.getCom());
-				Test a=new Test();
-		        a.openSerialPortb(ToSer,chuwei.getCom());
+				boolean[] b={true};
+				Modbus.writeCoil(com, row, col-1, b);
 			}
 			conn.commit();
 		} catch (SQLException e) {

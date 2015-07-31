@@ -9,6 +9,7 @@ import java.io.IOException;
 
 
 
+
 import javax.servlet.http.HttpSession;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
@@ -16,7 +17,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import com.rxtx.Aboutbyte;
+import com.action.LogSaver;
 import com.rxtx.Modbus;
 import com.serotonin.io.serial.SerialParameters;
 import com.serotonin.modbus4j.ModbusFactory;
@@ -25,50 +26,43 @@ import com.serotonin.modbus4j.exception.ModbusInitException;
 import com.sql.Getinfo;
 @ServerEndpoint("/websocket")
 public class WebSocketTest {
-	private final static int SLAVE_ADDRESS=1;
     //串行口波特率
     private final static int BAUD_RATE = 9600;
   @OnMessage
   public void onMessage(String message, Session session)
     throws IOException, InterruptedException {
-	  String com=Getinfo.getcomname(1);
-	  com=com.toUpperCase();
-
+	  String com=Getinfo.getcomname(1).toUpperCase();
       int[] di1=Getinfo.getcomdoor(1);
-    // Print the client message for testing purposes
     System.out.println("Received: " + message);
     System.out.println("Received: " + com+di1[2]+di1[3]);
     //session.getBasicRemote().sendText("{type:'aa',text:'"+message+"'}");
     int sentMessages = 0;
-    Boolean a = null,b = null;
+    boolean b=Modbus.readInput(com,di1[2],di1[3]-1,1)[0];
+	LogSaver ls = new LogSaver();
+	String uname = "null";
+	String authority = "!!!";
     while(sentMessages<1){
-      Thread.sleep(5000);
-      try {
-          byte[] door=Aboutbyte.getdi(di1[2]);
-          System.out.println(a);
-      } catch (ModbusInitException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-      finally {
-          master.destroy();
-      }
-      if(b==a){
+      Thread.sleep(3000);
+      boolean[] a=Modbus.readInput(com,di1[2],di1[3]-1,1);
+      if(a!=null){
+      if(b==a[0]){
     	  
       }
-      else if(a==true){
+      else if(a[0]==true){
     	  //写日志
-      session.getBasicRemote().
-        sendText("开门"
-          + a);
+			ls.saveinlog("opendoor", uname, authority);
+            session.getBasicRemote().sendText("开门");
       }
       else{
     	//写日志
-    	  session.getBasicRemote().
-          sendText("关门"
-            + a);
+    	  ls.saveinlog("closedoor", uname, authority);
+    	  session.getBasicRemote().sendText("关门");
       }
-      b = a;
+      b = a[0];
+    }
+    else{
+    	session.getBasicRemote().sendText("通讯和位置设置问题"+ a[0]);
+    }
     }
    
     // Send a final message to the client

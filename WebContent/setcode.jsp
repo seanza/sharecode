@@ -328,11 +328,10 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 		</div>
 		</div>
         </section>
-
 		<div >  
 		</div>
 		<footer class="footer">
-		<h1>Footer</h1>
+		<h1>杭州世创电子技术股份有限公司</h1>
 		</footer>
         <!-- =========================================
         java script
@@ -488,16 +487,13 @@ function keypress(e){
         }
        	else if(a=="成功"){
        		var d = dialog({
-           		lock:true,
-           		title: '提示',
-           		content: '成功设置本周转柜的位置条码，将跳转至DI/DO设置页面',
-           		 okValue: '确定',
-           		    ok: function () {
-           		    	 window.location.href="./config/setlock.jsp";
-           		    },
-           		    cancel: false,
-           	});
-           	d.showModal();
+	    		title: '消息',
+	    		content: '周转柜设置完成，将跳转至首页',
+	    		 okValue: '确定',
+	    		 ok: function () {window.location.href = "n1.jsp"},
+	    		 cancel: false,
+	    	});
+		   d.showModal();
        	}
        	else{
                alert(a);

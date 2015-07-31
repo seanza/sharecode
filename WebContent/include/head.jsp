@@ -60,5 +60,10 @@
 	   max-height: 280px;
 	   overflow:scroll;
 	   }
+	   .color{
+	       color: #FFFFFF;
+	       font-size: 35px;
+	       font-style: normal;
+	   }
         </style>
 </head>

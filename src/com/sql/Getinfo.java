@@ -250,11 +250,11 @@ public class Getinfo {
 		System.out.println("拼字符sztos"+sztos+"单项行数"+rownum[0]+"总行数"+rownum[1]);
 		int j=0;
 		for(int i=0;i<rownum[0];i++){  
-			str[i]=reverse(sztos.substring(j,j+8));
+			str[i]=sztos.substring(j,j+8);
 			j=j+8;
 		}
 		for(int i=rownum[0];i<rownum[1];i++){  
-			str[i]="000"+reverse(sztos.substring(j,j+5));
+			str[i]=sztos.substring(j,j+5)+"000";
 			j=j+5;
 		}
 		return str;

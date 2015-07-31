@@ -65,16 +65,15 @@ width: 140px;
             </div><!-- /home-section-container -->
         </section><!-- /home-section-wrapper -->
         <footer class="footer">
-		        <h1>Footer</h1>
+		        <h1>杭州世创电子技术股份有限公司</h1>
 		   </footer>
 </body>
  <SCRIPT LANGUAGE="JavaScript">
             var VoiceObj = new ActiveXObject("Sapi.SpVoice"); //创建一个朗读人
-            VoiceObj.Rate=-2;
+            VoiceObj.Rate=-1;
             VoiceObj.Speak("欢迎使用智能周转柜系统", 1);
         </SCRIPT>
         <script type="text/javascript">
-        
             var a1="aaa";
             window.setInterval("time()",60000);
             function time(){
@@ -99,4 +98,32 @@ width: 140px;
                       }
             window.onload = time;
          </script>
+          <script type="text/javascript">
+    var webSocket = 
+      new WebSocket("ws://"+ window.location.host+"/${pageContext.request.contextPath}/websocket");
+    webSocket.onerror = function(event) {
+      onError(event)
+    };
+
+    webSocket.onopen = function(event) {
+      onOpen(event)
+    };
+
+    webSocket.onmessage = function(event) {
+      onMessage(event)
+    };
+
+    function onMessage(event) {
+    	VoiceObj.Speak('门异常', 1);
+    }
+
+    function onOpen(event) {
+      webSocket.send('hello');
+    }
+
+    function onError(event) {
+      alert(event.data);
+    }
+
+  </script>
 </html>

@@ -15,8 +15,7 @@ import net.sf.json.JSONArray;
 import javax.servlet.annotation.WebServlet;
 
 import com.dao.*;
-import com.rxtx.Aboutbyte;
-import com.rxtx.Test;
+import com.rxtx.Modbus;
 import com.sql.Getinfo;
 
 import javax.servlet.ServletException;
@@ -54,15 +53,20 @@ public class OpendoorServlet extends HttpServlet {
 		resp.setCharacterEncoding("utf-8");
 		int id=Integer.parseInt(req.getParameter("id"));
 		int[] doorinfo=Getinfo.getcomdoor(id);
-        Test d=new Test(); 
-        byte[] c1=Aboutbyte.onlight(doorinfo[0], doorinfo[1]);
-        byte[] c2=Aboutbyte.offsinglelight(doorinfo[0], doorinfo[1]);
         String com= Getinfo.getcomname(id);
-   	    d.openSerialPortb(c1,com);
-   	    
-   	 try {
+		LogSaver ls = new LogSaver();
+		//String uname = (String) req.getSession().getAttribute("uname");
+		//String authority = (String)req.getSession().getAttribute("authority");
+   	    boolean[] t={true};
+   	    Modbus.writeCoil(com, doorinfo[0],doorinfo[1]-1,t);
+   	    ls.saveinlog("opendooruser", "admin", "管理员");
+   	    System.out.println("opendoor");
+   	    try {
 			Thread.sleep(7000);
-			d.openSerialPortb(c2,com);
+			boolean[] f={false};
+			Modbus.writeCoil(com, doorinfo[0],doorinfo[1]-1,f);
+			System.out.println("closedoor");
+			ls.saveinlog("closedooruser", "admin", "管理员");
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

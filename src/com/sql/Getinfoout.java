@@ -88,7 +88,7 @@ public class Getinfoout {
 		System.out.println(a);
 		return a;
 	}
-	public static String[] getallismeter(int num, String[] scode){            //取指定id的com的在位的有东西的数组，如0100010等
+	public static String[] getallismeter(int num, String[] scode,String[] sid){            //取指定id的com的在位的有东西的数组，如0100010等
 		int[] summeter=Getinfo.getadrnum(num);
 		boolean[] codematched = new boolean[scode.length];
 		String[] meterid=new String[summeter[0]+summeter[1]];
@@ -155,8 +155,6 @@ public class Getinfoout {
 				}
 				if(flag == 1)
 					break;
-				if(j == scode.length)
-					istargetmeter[i] = "0";
 			}
 		}
 		if(flag == 1)
@@ -174,20 +172,22 @@ public class Getinfoout {
 				return result;
 			}	
 		}
-		
+		for(int x=0;x<sid.length;x++){
+			istargetmeter[Integer.parseInt(sid[x])-1]="0";
+		}
 		String sztos=new String();
-		for(i=0;i<istargetmeter.length;i++){   sztos+=istargetmeter[i]; }
+		for(int l = 0;l<istargetmeter.length;l++){   sztos+=istargetmeter[l]; }
 		int[] rownum =new int[2];
 		rownum=Getinfo.getrownum(num);
 		String[] str=new String[rownum[1]];
 		System.out.println("拼字符sztos"+sztos+"单项行数"+rownum[0]+"总行数"+rownum[1]);
 		j=0;
 		for(i=0;i<rownum[0];i++){  
-			str[i]=reverse(sztos.substring(j,j+8));
+			str[i]=sztos.substring(j,j+8);
 			j=j+8;
 		}
 		for(i=rownum[0];i<rownum[1];i++){  
-			str[i]="000"+reverse(sztos.substring(j,j+5));
+			str[i]=sztos.substring(j,j+5)+"000";
 			j=j+5;
 		}
 		return str;

@@ -22,7 +22,6 @@
     webSocket.onopen = function(event) {
       onOpen(event)
     };
-
     webSocket.onmessage = function(event) {
       onMessage(event)
     };
@@ -33,8 +32,9 @@
     }
 
     function onOpen(event) {
-      document.getElementById('messages').innerHTML 
-        = 'Connection established';
+    document.getElementById('messages').innerHTML 
+         = 'Connection established';
+      webSocket.send('hello');
     }
 
     function onError(event) {

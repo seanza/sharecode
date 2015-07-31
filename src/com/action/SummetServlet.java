@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 
 import com.dao.DbManager;
-import com.rxtx.Test;
+import com.rxtx.Modbus;
 import com.sql.Getinfo;
 
 /**
@@ -139,28 +139,12 @@ public class SummetServlet extends HttpServlet {
       }
        public int[] gettemwet(){
     	String ret = ""; 
-   		byte[] b1={0x0A,0x03,0x00,0x00,0x00,0x03,(byte) 0x04,(byte) 0xB0};
-   		Test a=new Test(); 
-   		int id=1;
-   	    a.openSerialPortb(b1,Getinfo.getcomname(id));
-   	    String t=new String();
-   	    String w=new String();
+    	String com=Getinfo.getcomname(1);
+    	short[] tw=Modbus.readHold(com,10,0,2);
    	    int[] num=new int[2];
-   	    System.out.println("sign1");
-        try {
-			Thread.sleep(360);
-			ret=a.mt;
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-      if(ret!=""&&ret!=null){
-    	System.out.println("sign3");
-	    t=ret.substring(10,14);
-	    w=ret.substring(6,10);
-	    int tem=(Integer.parseInt(new BigInteger(t, 16).toString())-27315)/100;
-	    int wet=(Integer.parseInt(new BigInteger(w, 16).toString()))/100;
-
+      if(tw!=null){
+	    int tem=(tw[1]-27315)/100;
+	    int wet=tw[0]/100;
 	    num[0]=tem;
 	    num[1]=wet;
 	    return num;

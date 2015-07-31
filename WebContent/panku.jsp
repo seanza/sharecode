@@ -61,7 +61,7 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 		   <div class="panel-heading">盘库操作</div>
 		<div id="dateMessage" class="maxhei">   
         <table id="tab1" class="table">   
-            <tr><td>位置号</td><td>输入位置条码</td><td>输入电表条码</td></tr>   
+            <tr><td>位置号</td><td>输入电表条码</td><td>输入位置条码</td></tr>   
         </table>   
         </div>   
             
@@ -77,7 +77,7 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 		<div >  
 		</div>
 		<footer class="footer">
-		<h1>Footer</h1>
+		<h1>杭州世创电子技术股份有限公司</h1>
 		</footer>
         <!-- =========================================
         java script
@@ -110,7 +110,7 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     dataType:'json',
     success: function (msg) {
     	var num= parseInt(msg);
-    	if(num!=-9){
+    	if(num!=NaN){
     		if(num==0){
     			var d = dialog({
     	    		title: '消息',
@@ -155,19 +155,8 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     	    	d.showModal();
     	    	}
     },
-
-    error: function(aa) {
-    	var d = dialog({
-    		lock:true,
-    		title: '警告消息',
-    		content: '请求入库仪表数量大于可放仪表数量，请点击确定返回上一级重新选择入库数量',
-    		 okValue: '确定',
-    		    ok: function () {
-    		    	location.reload(true);
-    		    },
-    		    cancel: false,
-    	});
-    	d.showModal();
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+        alert(textStatus);
     },
     complete: function(XMLHttpRequest, textStatus) {
         this; // 调用本次AJAX请求时传递的options参数

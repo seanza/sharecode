@@ -24,7 +24,7 @@ width: 140px;
 						
 					<div class="row mar">
 						<div class="col-sm-4 juzhong">
-						    
+						     <button class="button button-box button-giant" onclick="window.location.href('getlog.jsp')">日志查询</button>
                         </div><!-- /col-xs-4 -->
                         <div class="col-sm-4 juzhong">
 						    <button class="button button-box button-giant" onclick="window.location.href('adduser.jsp')">添加用户</button>
@@ -51,7 +51,7 @@ width: 140px;
 
 			</section>
 			<footer class="footer">
-		        <h1>Footer</h1>
+		        <h1>杭州世创电子技术股份有限公司</h1>
 		   </footer>
 </body>
 </html>

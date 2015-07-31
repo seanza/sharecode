@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.dao.DbManager;
+import com.rxtx.Modbus;
+import com.sql.Getinfo;
 
 /**
  * Servlet implementation class CancelServlet
@@ -47,6 +49,10 @@ public class CancelServlet extends HttpServlet {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
         PrintWriter out=resp.getWriter();
+        int[] getrow=Getinfo.getrownum(1);
+		int sumrownum=getrow[1];
+		int[] getre=new int[sumrownum];
+		String com= Getinfo.getcomname(1);
 		//List<Student> list = new ArrayList<Student>();
 		try {
 			conn = DbManager.getConnection();
@@ -54,6 +60,7 @@ public class CancelServlet extends HttpServlet {
             pst = conn.prepareStatement("call deltemp()");
             pst.executeUpdate();
 			conn.commit();
+			Modbus.write8coilofflight(com,sumrownum);   //关灯
 			out.println("1");
 		} catch (SQLException e) {
 			try {

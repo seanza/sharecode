@@ -18,8 +18,6 @@ import javax.servlet.annotation.WebServlet;
 import com.model.Student;
 import com.model.Chuwei;
 import com.dao.*;
-import com.rxtx.Test;
-import com.rxtx.SerialReader;
 import com.service.StudentService;
 import com.service.impl.StudentServiceImpl;
 import com.sql.Getinfo;
@@ -139,7 +137,7 @@ public static void updateChuweiList(String[] sql1,String[] sql2){
 			System.out.println("id"+id);
 			String mcode=sql2[i];
 			System.out.println("mcode"+mcode);
-			pst = conn.prepareStatement("update chuwei set meter_code = '"+mcode+"' WHERE code='"+id+"'");
+			pst = conn.prepareStatement("update chuwei set meter_code = '"+id+"' WHERE code='"+mcode+"'");
 			int x=pst.executeUpdate();
 			System.out.println(x);
 			}

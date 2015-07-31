@@ -154,7 +154,7 @@ width: 140px;
 		                   		 d.showModal();
 		                   	}
 		                   	else{
-		                   		window.location.href="${pageContext.request.contextPath}/setcode.jsp";
+		                   		window.location.href="${pageContext.request.contextPath}/config/setlock.jsp";
 		                   	}
 		                   	
 		                   },

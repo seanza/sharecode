@@ -63,11 +63,34 @@
                 </div><!-- /row -->
             </div>
         </section>
-<footer class="footer">
-		        <h1>Footer</h1>
+        <footer class="footer">
+		        <h1>杭州世创电子技术股份有限公司</h1>
 		   </footer>
-</body>
-<script type="text/javascript">
+        </body>
+         <script type="text/javascript">
+    var webSocket = new WebSocket("ws://"+ window.location.host+"/${pageContext.request.contextPath}/websocket");
+    webSocket.onerror = function(event) {
+      onError(event)
+    };
+
+    webSocket.onopen = function(event) {
+      onOpen(event)
+    };
+
+    webSocket.onmessage = function(event) {
+      onMessage(event)
+    };
+    function onMessage(event) {
+    	VoiceObj.Speak('门异常', 1);
+    }
+    function onOpen(event) {
+      webSocket.send('hello');
+    }
+    function onError(event) {
+      alert(event.data);
+    }
+  </script>
+        <script type="text/javascript">
 		 $("#button32").click(function(){
 			 $.ajax({
             	    url:'TakepicServlet',
@@ -82,4 +105,5 @@
             VoiceObj.Rate=-1;
             VoiceObj.Speak("请输入用户名密码登陆", 1);
         </SCRIPT>
+        
 </html>

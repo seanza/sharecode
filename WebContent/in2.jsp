@@ -29,15 +29,10 @@ width: 140px;
 		<button class="button button-royal button-raised  juzuo" id="button2">取消操作</button>
 		</div>
                     </div>
-					<div class="row mar">
-                        <div class="col-sm-12 juzhong">
-						    <button class="button button-box button-giant" id="button">确认</button>
-                        </div><!-- /col-md-12 -->
-					</div>
                     </div>
 			</section>
 			<footer class="footer">
-		        <h1>Footer</h1>
+		        <h1>杭州世创电子技术股份有限公司</h1>
 		   </footer>
 		   <script > 
 		      var a=<%=session.getAttribute("mes")%>
@@ -68,7 +63,7 @@ width: 140px;
             	    		 cancel: false,
             	    	});
             	        $.ajax({    
-            	            url:'OpendoorServlet',
+            	            url:'${pageContext.request.contextPath}/OpendoorServlet',
             	            data:{id:id},
             	            type:'post',    
             	            cache:false,
@@ -109,7 +104,7 @@ width: 140px;
         		  var scode=arrcode.join(",");
         		  var sid=arrid.join(",");
             $.ajax( {    
-            url:'InsaveServlet',
+            url:'${pageContext.request.contextPath}/InsaveServlet',
             data:{scode:scode,sid:sid,id:id},
             type:'post',    
             cache:false,    
@@ -150,7 +145,7 @@ width: 140px;
                 		 okValue: '确定',
                 		    ok: function () {
                 		    	$.ajax({    
-	                     	            url:'CancelServlet',
+	                     	            url:'${pageContext.request.contextPath}/CancelServlet',
 	                     	            data:{set:id},
 	                     	            type:'post',    
 	                     	            cache:false,    
@@ -170,7 +165,7 @@ width: 140px;
 	                		 okValue: '确定',
 	                		    ok: function () {
 		                		    $.ajax({    
-	                     	            url:'CancelServlet',
+	                     	            url:'${pageContext.request.contextPath}/CancelServlet',
 	                     	            data:{set:id},
 	                     	            type:'post',    
 	                     	            cache:false,    
@@ -190,7 +185,7 @@ width: 140px;
                 		okValue: '取消入库',
                 		    ok: function () {
                 		    	 $.ajax({    
-                     	            url:'CancelServlet',
+                     	            url:'${pageContext.request.contextPath}/CancelServlet',
                      	            data:{set:id},
                      	            type:'post',    
                      	            cache:false,    
@@ -218,7 +213,7 @@ width: 140px;
         });
         	  $("#button2").click(function(){
                 		    	 $.ajax({    
-                     	            url:'CancelServlet',
+                     	            url:'${pageContext.request.contextPath}/CancelServlet',
                      	            data:{set:id},
                      	            type:'post',    
                      	            cache:false,    

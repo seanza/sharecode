@@ -20,7 +20,6 @@ import net.sf.json.JSONArray;
 
 import com.dao.DbManager;
 import com.model.Chuwei;
-import com.rxtx.Test;
 
 
 public class BaojingcanshuServlet extends HttpServlet {

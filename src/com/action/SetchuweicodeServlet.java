@@ -18,8 +18,6 @@ import javax.servlet.annotation.WebServlet;
 import com.model.Student;
 import com.model.Chuwei;
 import com.dao.*;
-import com.rxtx.Test;
-import com.rxtx.SerialReader;
 import com.sql.Getinfo;
 /**
  * Servlet implementation class Jsondata

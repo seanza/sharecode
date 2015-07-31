@@ -129,7 +129,7 @@ width: 140px;
            </div>
         </section>
 			<footer class="footer">
-		        <h1>Footer</h1>
+		        <h1>杭州世创电子技术股份有限公司</h1>
 		   </footer>
 </body>
 		   <script> 

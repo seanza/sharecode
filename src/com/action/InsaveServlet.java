@@ -17,8 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.dao.DbManager;
-import com.rxtx.Aboutbyte;
-import com.rxtx.Test;
+import com.rxtx.Modbus;
 import com.sql.Getinfo;
 import com.sql.Setinfo;
 
@@ -61,7 +60,6 @@ public class InsaveServlet extends HttpServlet {
 		PrintWriter out=resp.getWriter();
 		int[] getrow=Getinfo.getrownum(id);
 		int sumrownum=getrow[1];
-		int[] getre=new int[sumrownum];
 		String com= Getinfo.getcomname(id);
 		
 		if(scode.indexOf(",")>0){
@@ -79,39 +77,37 @@ public class InsaveServlet extends HttpServlet {
 			stringid[0]=sid;
 			System.out.println("入库数量为一："+stringid[0]);
 		}
-		
+		LogSaver ls = new LogSaver();
+		String uname = (String) req.getSession().getAttribute("uname");
+		String authority = (String)req.getSession().getAttribute("authority");
 		if(repeated == 0)
 		{
 			String[] str=Getinfo.getallismeter(id,stringid);
+			System.out.println(Arrays.toString(str));
+			String[] ret=Modbus.read8Input(com,sumrownum);
 			System.out.println("数据库操作后应返回："+Arrays.toString(str));
-			for(int i=0;i<sumrownum;i++){
-			  byte[] di= Aboutbyte.getdi(i+1);
-			  getre[i]=By(di,Aboutbyte.binaryString2hexString(str[i]),Getinfo.getcomname(id));
-			}
 			int back=0;
-			for(int i=0;i<getre.length;i++){
-				back=back+getre[i];
+			for(int i=0;i<sumrownum;i++){
+			  if(str[i].equals(ret[i])){
+				  back=back+1;
+				  System.out.println(i+"每次back"+back);
+			     }
+			  else{
+				  System.out.println(i+"不相同"+str[i]+"  "+ret[i]);
+			  }
 			}
-			back=8;
 			System.out.println("监测串口返回back数据"+back);
-			//back=9;    //test data
-			//sumrownum=8;    //test data
 			if(back==sumrownum){
 				updateChuweiList(stringcode,stringid,com);
-				Test b=new Test(); 
-				for(int i=1;i<sumrownum+1;i++){
-					b.openSerialPortb(Aboutbyte.offlight(i),com);
-				}
+				Modbus.write8coilofflight(com,sumrownum);   //关灯
 	    		int a=Getinfo.getifnext(id);
 	    		if(a==1){
 	    			list.add("继续");
+	    			ls.saveinlog("in", uname, authority);
 	    			req.getSession().setAttribute("mes", id+1); 
 	    		}
 	    		else{
 	    			list.add("成功");
-	    			LogSaver ls = new LogSaver();
-	    			String uname = (String) req.getSession().getAttribute("uname");
-	    			String authority = (String)req.getSession().getAttribute("authority");
 	    			ls.saveinlog("in", uname, authority);
 	    		    Setinfo.deltemp();
 	    		}
@@ -122,20 +118,16 @@ public class InsaveServlet extends HttpServlet {
 			else if(back==-sumrownum){
 				list.add("串口通讯错误");
 				Setinfo.deltemp();
-				Test b=new Test();
-				for(int i=1;i<sumrownum+1;i++){
-					b.openSerialPortb(Aboutbyte.offlight(i),com);
-				}
+				ls.saveinlog("infa", uname, authority);
+				Modbus.write8coilofflight(com,sumrownum);   //关灯
 				jsons = JSONArray.fromObject(list);
 				out.println(jsons);
 				list.clear();
 			}
 			else {
 				list.add("失败，储位异常，存在错误，请将初为保持出库前状态");
-				Test b=new Test();
-				for(int i=1;i<sumrownum+1;i++){
-					b.openSerialPortb(Aboutbyte.offlight(i),com);
-				}
+				ls.saveinlog("infa", uname, authority);
+				Modbus.write8coilofflight(com,sumrownum);   //关灯
 				Setinfo.deltemp();
 				jsons = JSONArray.fromObject(list);
 				out.println(jsons);
@@ -146,10 +138,8 @@ public class InsaveServlet extends HttpServlet {
 		{
 			list.add("条码重复");
 			Setinfo.deltemp();
-			Test b=new Test();
-			for(int i=1;i<sumrownum+1;i++){
-				b.openSerialPortb(Aboutbyte.offlight(i),com);
-			}
+			ls.saveinlog("infa", uname, authority);
+			Modbus.write8coilofflight(com,sumrownum);   //关灯
 			jsons = JSONArray.fromObject(list);
 			out.println(jsons);
 			list.clear();
@@ -203,32 +193,4 @@ public class InsaveServlet extends HttpServlet {
 			DbManager.closeConnection(conn, pst, rs);
 		}	
 	}
-    public static int By(byte[] cc,String ss,String com) { 
- 	   String ret = ""; 
- 	   Test a=new Test(); 
-        a.openSerialPortb(cc,com);
-        String m=new String();
-        int i;
-     try {
- 			Thread.sleep(360);
- 			ret=a.mt;
- 			System.out.println("串口返回数据："+ret+"--与现有对比"+ss);
- 		} catch (InterruptedException e) {
- 			// TODO Auto-generated catch block
- 			e.printStackTrace();
- 		}
-      if(ret!=""&&ret!=null){
- 	    m=ret.substring(6,8);
- 	    System.out.println("串口返回数据切分："+m+"--与现有对比"+ss);
-      if(m.equals(ss)){
- 	        return 1;
-      }
-      else{
-  	   return 0;
-      }
-      }
-      else{
-      	 return -1;
-      }
-   }
 }

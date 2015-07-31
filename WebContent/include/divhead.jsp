@@ -22,7 +22,7 @@
 
                                 <!-- logo -->
                                 <a href="#" class="navbar-brand scrollto"">
-                                    <img src="${pageContext.request.contextPath}/css/logo2.png" alt="logo">
+                                   <p class="color">计量周转柜</p>
                                 </a><!-- /logo -->
 
                             </div><!-- /navbar-header -->
@@ -35,7 +35,7 @@
 
                                     <!-- Home -->
                                     <li>
-                                        <a href="#" title="Home" class="scrollto">首页</a>
+                                        <a href="n1.jsp" title="Home" class="scrollto">首页</a>
                                     </li><!-- /Home -->
 
                                     <!-- Services -->

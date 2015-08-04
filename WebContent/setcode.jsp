@@ -531,12 +531,11 @@ function keypress(e){
 
 	   if(currKey==13)
 		{
-			   for ( var i = 0; i < rows+2; i++) //循环到arr数组的长度减一，最后一个就不用循环了 
+			   for ( var i = 0; i < rows*2+2; i++) //循环到arr数组的长度减一，最后一个就不用循环了 
 			{
 			  if(document.getElementById('inp'+i).value==""){
 				  if(linshi!=keystring){
 	          document.getElementById('inp'+i).value=keystring;
-	          
 				  }
 			  linshi=keystring;
 			  keystring="";

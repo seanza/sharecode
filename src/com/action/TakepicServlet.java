@@ -63,7 +63,7 @@ public class TakepicServlet extends HttpServlet {
     		};
         Webcam webcam = Webcam.getDefault();
         webcam.setCustomViewSizes(nonStandardResolutions);
-		webcam.setViewSize(WebcamResolution.HD720.getSize());
+		webcam.setViewSize(WebcamResolution.VGA.getSize());
 		webcam.open();
 		Date date=new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd时间HH时mm分ss秒");

@@ -7,6 +7,21 @@
 .button-circle.button-giant, .button-box.button-giant, .button-square.button-giant {
 width: 140px;
 }
+     #scrollUp {
+     bottom: 122px;
+background-color: #777;
+color: #eee;
+font-size: 20px;
+line-height: 1;
+text-align: center;
+text-decoration: none;
+right: 20px;
+overflow: hidden;
+width: 92px;
+height: 46px;
+border: none;
+opacity: .8;
+}
 </style>
 	<script type="text/javascript">
 	function addnum(id){
@@ -60,7 +75,7 @@ width: 140px;
                
                         <div class="col-sm-1">
                            
-                               <button class="button button-box button-giant" onclick=minnum("text1")><i class="fa fa-minus"></i></button>
+                               <button class="button button-box button-giant" onclick=minnum("text1")><i class="icon-minus"></i></button>
                              
                         </div>
 
@@ -73,7 +88,7 @@ width: 140px;
 
 						  <div class="col-sm-2">
                            
-                               <button class="button button-box button-giant" onclick=addnum("text1") ><i class="fa fa-plus"></i></button>
+                               <button class="button button-box button-giant" onclick=addnum("text1") ><i class="icon-plus"></i></button>
                              
                         </div>
 						
@@ -100,7 +115,7 @@ width: 140px;
                
                         <div class="col-sm-1">
                            
-                               <button class="button button-box button-giant" onclick=minnum("text2")><i class="fa fa-minus"></i></button>
+                               <button class="button button-box button-giant" onclick=minnum("text2")><i class="icon-minus"></i></button>
                              
                         </div>
 
@@ -113,7 +128,7 @@ width: 140px;
 
 						  <div class="col-sm-2">
                            
-                               <button class="button button-box button-giant" onclick=addnum("text2") ><i class="fa fa-plus"></i></button>
+                               <button class="button button-box button-giant" onclick=addnum("text2") ><i class="icon-plus"></i></button>
                              
                         </div>
 						 </div>
@@ -128,6 +143,8 @@ width: 140px;
                 </div>
            </div>
         </section>
+        
+         <a id="scrollUp" style="position: fixed;display: block;">后退</a>
 			<footer class="footer">
 		        <h1>杭州世创电子技术股份有限公司</h1>
 		   </footer>
@@ -189,6 +206,10 @@ width: 140px;
 		  }
           });
           });
+      $("#scrollUp").click(function(){
+   	   window.location.href="n3.htm";
+   	   
+      });
 </script>   
 <script>
 function del(obj){   

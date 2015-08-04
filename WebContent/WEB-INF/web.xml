@@ -45,10 +45,6 @@
     <servlet-class>com.action.DelcodeServlet</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>SelallServlet</servlet-name>
-    <servlet-class>com.action.SelallServlet</servlet-class>
-  </servlet>
-  <servlet>
     <servlet-name>SummetServlet</servlet-name>
     <servlet-class>com.action.SummetServlet</servlet-class>
   </servlet>
@@ -63,10 +59,6 @@
   <servlet>
     <servlet-name>PankuquerenServlet</servlet-name>
     <servlet-class>com.action.PankuquerenServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>SetusefulServlet</servlet-name>
-    <servlet-class>com.action.SetusefulServlet</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>BaojingcanshuServlet</servlet-name>

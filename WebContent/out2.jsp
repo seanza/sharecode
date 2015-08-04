@@ -159,6 +159,7 @@ width: 140px;
                 		    cancel: false,
                 	});
                 	d.showModal();
+                	complete();
             	}
             	else if(a=="继续"){
             		var d = dialog({
@@ -266,6 +267,10 @@ function keypress(e){
 	var VoiceObj = new ActiveXObject("Sapi.SpVoice");
 	VoiceObj.Rate=-1;
 	VoiceObj.Speak("请打开柜门，按顺序取表，扫码，完成后点击确认按钮",1);
+	function complete()
+    {
+    	VoiceObj.Speak("出库成功，请关闭柜门", 1);
+    }
 </script>
 </body>
 </html>

@@ -19,7 +19,7 @@ import com.dao.DbManager;
 
 import net.sf.json.JSONArray;
 
-
+@WebServlet("/SetusefulServlet")
 public class SetusefulServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -47,21 +47,28 @@ public class SetusefulServlet extends HttpServlet {
 		resp.setCharacterEncoding("utf-8");
         String userName= req.getParameter("name");
 		System.out.println("updata1"+userName);
+		List<String> list = new ArrayList<String>();
+		JSONArray jsons=new JSONArray();
+		PrintWriter out=resp.getWriter();
 		String[] stringA;
-		String[] stringB;
+		delisuseful();
+		if(userName.equals("")){
+		}
+		else{
 		if(userName.indexOf(",")>0){
 			stringA= userName.split(","); 
+			System.out.println("up123"+stringA[0]);
+			updateisuseful(stringA);
 		}
 		else {
 			stringA=new String[1];
 			stringA[0]=userName;
+			System.out.println("up123"+stringA[0]);
+			updateisuseful(stringA);
+		     }
 		}
-		System.out.println("up123"+stringA[0]);
-		List<String> list = new ArrayList<String>();
-		JSONArray jsons=new JSONArray();
-		PrintWriter out=resp.getWriter();
-		delisuseful();
-    	updateisuseful(stringA);
+		
+    	
     	list.add("成功");
     	jsons = JSONArray.fromObject(list);
     	out.println(jsons);
@@ -100,7 +107,8 @@ public static void delisuseful(){
 	try {
 		conn = DbManager.getConnection();
 		conn.setAutoCommit(false);
-		pst = conn.prepareStatement("update chuwei set isUseful = '0' ");
+		pst = conn.prepareStatement("update chuwei set isUseful = '0'");
+		pst.executeUpdate();
 		conn.commit();
 	} catch (SQLException e) {
 		try {

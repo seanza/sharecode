@@ -44,13 +44,25 @@
                     </div><!-- /col-md-12 -->
 
                    <form action="StudentServlet" method="post">
+                        <div class="row">
+			            <div class='col-sm-2 juzhong'></div>
+				            <div class='col-sm-3 juzhong'><label>用户名：</label></div> 
+				            <div class='col-sm-5 juzhong'><label><input type="text" id="keyboard" name="userName" class="form-control"/></label>
+				            </div>
+				            <div class='col-sm-2 juzhong'></div>
+				        </div>    
+				        <div class="row">
+				            <div class='col-sm-2 juzhong'></div>
+				            <div class='col-sm-3 juzhong'><label>密&nbsp;&nbsp;&nbsp;&nbsp;码</label></div> 
+				            
+				            <div class='col-sm-5 juzhong'><label><input type="password" name="userPwd" id="keyboard1" class="form-control"/></label>
+			              
+
+			              </div>
+			              <div class='col-sm-2 juzhong'></div>
+			              </div>  
 			            <div class='juzhong'>
-				            <label>用户名：</label> <label><input type="text" id="keyboard"
-					          name="userName" class="form-control"/></label><br /> <label>密&nbsp;&nbsp;碼：</label> <label><input
-					          type="password" name="userPwd" id="keyboard1" class="form-control"/></label>
-			           </div>
-			            <div class='juzhong'>
-				            <label><input type="submit" id='button32' class="btn btn-default" value="登錄" /></label> 
+				            <label><input type="submit" id='button32' class="button-wrap" value="登录" /></label> 
 	 		           </div>
 	            	</form>
                    <div class="col-sm-3">

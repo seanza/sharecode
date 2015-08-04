@@ -52,6 +52,21 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 	   max-height: 280px;
 	   overflow:scroll;
 	   }
+	        #scrollUp {
+     bottom: 122px;
+background-color: #777;
+color: #eee;
+font-size: 30px;
+line-height: 1;
+text-align: center;
+text-decoration: none;
+right: 20px;
+overflow: hidden;
+width: 92px;
+height: 46px;
+border: none;
+opacity: .8;
+}
         </style>
 <body>
 <jsp:include page="/include/divhead.jsp" />
@@ -76,6 +91,7 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 
 		<div >  
 		</div>
+		         <a id="scrollUp" style="position: fixed;display: block;">后退</a>
 		<footer class="footer">
 		<h1>杭州世创电子技术股份有限公司</h1>
 		</footer>
@@ -140,6 +156,14 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     		 ok: function () {},
     		 cancel: false,
     	});
+        var cccc=1;
+        $.ajax({
+	          url:'${pageContext.request.contextPath}/OpendoorServlet',
+	          data:{id:cccc},
+	          type:'post',
+	          cache:false,
+	          dataType:'json'
+        });
     	d.showModal();
     	}
     	else {
@@ -229,7 +253,7 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
         		    cancel: false,
         	});
         	d.showModal();
-        	SpeakTextses();
+        	complete();
     	}
     	else{
             self.location.reload();
@@ -248,6 +272,10 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 
 
 });
+      $("#scrollUp").click(function(){
+   	   window.location.href="n3.htm";
+   	   
+      });
 </script>   
 <script>
 var keystring = "";//记录按键的字符串
@@ -268,12 +296,11 @@ function keypress(e){
 
 	   if(currKey==13)
 		{
-			   for ( var i = 0; i < rows+2; i++) //循环到arr数组的长度减一，最后一个就不用循环了 
+			   for ( var i = 0; i < rows*2; i++) //循环到arr数组的长度减一，最后一个就不用循环了 
 			{
 			  if(document.getElementById('inp'+i).value==""){
 				  if(linshi!=keystring){
 	          document.getElementById('inp'+i).value=keystring;
-	          
 				  }
 			  linshi=keystring;
 			  keystring="";
@@ -295,6 +322,10 @@ function keypress(e){
 	var VoiceObj = new ActiveXObject("Sapi.SpVoice");
 	VoiceObj.Rate=-1;
 	VoiceObj.Speak("请打开柜门，按顺序放表，扫码，完成后点击确认按钮",1);
+	function complete()
+    {
+    	VoiceObj.Speak("出库成功，请关闭柜门", 1);
+    }
 </script>
 </body>
 </html>

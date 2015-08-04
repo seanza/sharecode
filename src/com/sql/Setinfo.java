@@ -40,11 +40,35 @@ public class Setinfo {
  			DbManager.closeConnection(conn, pst, rs);
  		}
  	}
+    public static void insertalert(String date,String time,String log){
+    	Connection conn = null;
+ 		PreparedStatement pst = null;
+ 		ResultSet rs = null;
+ 		try {
+ 			conn = DbManager.getConnection();
+ 			conn.setAutoCommit(false);
+             pst = conn.prepareStatement("INSERT into alert(date,time,log) VALUES(?,?,?)");
+             pst.setString(1, date);  
+             pst.setString(2, time);  
+             pst.setString(3, log);
+             System.out.println("insertbaojing");
+             pst.executeUpdate();
+ 			conn.commit();
+ 		} catch (SQLException e) {
+ 			try {
+ 				conn.rollback();
+ 			} catch (SQLException e1) {
+ 				e1.printStackTrace();
+ 			}
+ 			e.printStackTrace();
+ 		}finally{
+ 			DbManager.closeConnection(conn, pst, rs);
+ 		}
+ 	}
     public static void deltemp(){
     	Connection conn = null;
  		PreparedStatement pst = null;
  		ResultSet rs = null;
-
  		try {
  			conn = DbManager.getConnection();
  			conn.setAutoCommit(false);

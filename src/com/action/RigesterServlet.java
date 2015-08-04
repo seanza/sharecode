@@ -42,8 +42,8 @@ public class RigesterServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		System.out.println(abc);
 		if(abc>0){
-			out.print("<script>alert('成功');</script>");
-			out.print("<script>window.location.href='sconfig.jsp'</script>");
+			out.print("成功");
+
 		}
 		else{
 			out.print("<script>alert('失败');</script>");

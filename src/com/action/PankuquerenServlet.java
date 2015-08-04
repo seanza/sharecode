@@ -73,6 +73,7 @@ public class PankuquerenServlet extends HttpServlet {
 		{
 			System.out.println("up123"+stringA[0]);
 			System.out.println("up124"+stringB[0]);
+			delmeter();
 	    	updateChuweiList(stringA,stringB);
 	    	LogSaver ls = new LogSaver();
 	    	String uname = (String) req.getSession().getAttribute("uname");
@@ -141,7 +142,6 @@ public static void updateChuweiList(String[] sql1,String[] sql2){
 			int x=pst.executeUpdate();
 			System.out.println(x);
 			}
-			
 			conn.commit();
 		} catch (SQLException e) {
 			try {
@@ -154,4 +154,25 @@ public static void updateChuweiList(String[] sql1,String[] sql2){
 			DbManager.closeConnection(conn, pst, rs);
 		}	
 	}
+public static void delmeter(){
+	Connection conn = null;
+	PreparedStatement pst = null;
+	ResultSet rs = null;
+	try {
+		conn = DbManager.getConnection();
+		conn.setAutoCommit(false);
+		pst = conn.prepareStatement("update chuwei set meter_code =Null");
+		pst.executeUpdate();
+		conn.commit();
+	} catch (SQLException e) {
+		try {
+			conn.rollback();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		e.printStackTrace();
+	}finally{
+		DbManager.closeConnection(conn, pst, rs);
+	}	
+}
 }  

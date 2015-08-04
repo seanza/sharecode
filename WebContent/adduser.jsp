@@ -7,6 +7,21 @@
 .button-circle.button-giant, .button-box.button-giant, .button-square.button-giant {
 width: 140px;
 }
+     #scrollUp {
+     bottom: 122px;
+background-color: #777;
+color: #eee;
+font-size: 30px;
+line-height: 1;
+text-align: center;
+text-decoration: none;
+right: 20px;
+overflow: hidden;
+width: 92px;
+height: 46px;
+border: none;
+opacity: .8;
+}
 </style>
 <body>
 <jsp:include page="./include/divhead.jsp" />
@@ -75,6 +90,7 @@ width: 140px;
                         
                         </div>
 			</section>
+			         <a id="scrollUp" style="position: fixed;display: block;">后退</a>
 <footer class="footer">
 		        <h1>杭州世创电子技术股份有限公司</h1>
 		   </footer>
@@ -93,14 +109,13 @@ $("#button1").click(function(){
 	        intHot = temp[i].value;
 	                        }
 		 }
-	 alert(intHot);
 	if(name!=""&&psd!=""){
 		$.ajax({    
 			url:'RigesterServlet',
 			data:{name:name,psd:psd,group:intHot},
 			type:'post',    
 			cache:false,    
-			dataType:'json',
+			dataType:'text',
 			success: function (a) {
 				if(a=="成功"){
 					var d = dialog({
@@ -145,6 +160,14 @@ function conpsd(){
 		document.getElementById('psd2').style.backgroundColor = 'red';
 	}
 }
+$("#scrollUp").click(function(){
+	   window.location.href="sconfig.jsp";
+	   
+});
+$("#button2").click(function(){
+	   window.location.href="sconfig.jsp";
+	   
+});
 </script>
 
 </html>

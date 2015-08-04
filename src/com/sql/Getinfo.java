@@ -172,6 +172,31 @@ public class Getinfo {
 		System.out.println(a[0] + " " + a[1]);
 		return a;
 	}
+	public static int[] getyuzhi(){            //取这次将入库的数量
+		int[] a =new int[6];
+		Connection conn = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			conn = DbManager.getConnection();
+			pst = conn.prepareStatement("select * from yuzhi");
+			rs = pst.executeQuery();
+			rs.next();
+			a[0]=Integer.parseInt(rs.getString(1));
+			a[1]=Integer.parseInt(rs.getString(2));
+			a[2]=Integer.parseInt(rs.getString(3));
+			a[3]=Integer.parseInt(rs.getString(4));
+			a[4]=Integer.parseInt(rs.getString(5));
+			a[5]=Integer.parseInt(rs.getString(6));
+			return a;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			DbManager.closeConnection(conn, pst, rs);
+		}
+		System.out.println(a[0] + "yuzhi" + a[1]);
+		return a;
+	}
 	public static int[] getadrnum(int num ){            //取指定id的com的储位数量
 		int[] a =new int[2];
 		Connection conn = null;

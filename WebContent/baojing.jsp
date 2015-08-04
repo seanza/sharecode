@@ -7,6 +7,21 @@
 .button-circle.button-giant, .button-box.button-giant, .button-square.button-giant {
 width: 140px;
 }
+     #scrollUp {
+     bottom: 122px;
+background-color: #777;
+color: #eee;
+font-size: 30px;
+line-height: 1;
+text-align: center;
+text-decoration: none;
+right: 20px;
+overflow: hidden;
+width: 92px;
+height: 46px;
+border: none;
+opacity: .8;
+}
 </style>
 <body>
 <jsp:include page="./include/divhead.jsp" />
@@ -84,6 +99,7 @@ width: 140px;
                         
                         </div>
 			</section>
+			         <a id="scrollUp" style="position: fixed;display: block;">后退</a>
 <footer class="footer">
 		        <h1>杭州世创电子技术股份有限公司</h1>
 		   </footer>
@@ -109,9 +125,7 @@ $("#button1").click(function(){
 		        che2 = temp1[i].value;
 		                    }
 		 }
-	alert(wetl);
 	if(teml!=""&&temh!=""&&wetl!=""&&weth!=""&&chul!=""){
-		alert(wetl);
 		$.ajax({    
 			url:'BaojingcanshuServlet',
             data:{teml:teml,temh:temh,wetl:wetl,weth:weth,che1:che1,che2:che2,chul:chul},
@@ -133,7 +147,6 @@ $("#button1").click(function(){
 			  	d.showModal();
 				}
 				else{
-			      alert(aa);
 			      window.location.href="sconfig.jsp";
 				}
 			},
@@ -145,6 +158,10 @@ $("#button1").click(function(){
 			}
 			});
 	}
+});
+$("#scrollUp").click(function(){
+	   window.location.href="sconfig.jsp";
+	   
 });
 </script>
 </html>

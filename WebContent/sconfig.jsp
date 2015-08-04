@@ -7,6 +7,21 @@
 .button-circle.button-giant, .button-box.button-giant, .button-square.button-giant {
 width: 140px;
 }
+     #scrollUp {
+     bottom: 122px;
+background-color: #777;
+color: #eee;
+font-size: 30px;
+line-height: 1;
+text-align: center;
+text-decoration: none;
+right: 20px;
+overflow: hidden;
+width: 92px;
+height: 46px;
+border: none;
+opacity: .8;
+}
 </style>
 <body>
 <jsp:include page="./include/divhead.jsp" />
@@ -24,34 +39,41 @@ width: 140px;
 						
 					<div class="row mar">
 						<div class="col-sm-4 juzhong">
-						     <button class="button button-box button-giant" onclick="window.location.href('getlog.jsp')">日志查询</button>
-                        </div><!-- /col-xs-4 -->
+						   <button class="button button-box button-giant" onclick="window.location.href('adduser.jsp')">添加用户</button>
+	                    </div>
                         <div class="col-sm-4 juzhong">
-						    <button class="button button-box button-giant" onclick="window.location.href('adduser.jsp')">添加用户</button>
+						    <button class="button button-box button-giant" onclick="window.location.href('baojing.jsp')" >报警管理</button>
                         </div><!-- /col-md-4 -->
                         <div class="col-sm-4 juzhong">
 						    <button class="button button-box button-giant" onclick="window.location.href('setku.htm')">储位管理</button>
                         </div><!-- /col-xs-4 -->
-					</div>
+					</div>  
 					<div class="row mar">
 						<div class="col-sm-4 juzhong">
-						    <button class="button button-box button-giant" onclick="window.location.href('baojing.jsp')" >报警管理</button>
-                        </div><!-- /col-xs-4 -->
+						                    </div>
                         <div class="col-sm-4 juzhong">
-						   
-                        </div><!-- /col-xs-4 -->
+						    <button class="button button-box button-giant" onclick="closeWindow()" >退出</button>
+                        </div><!-- /col-md-4 -->
                         <div class="col-sm-4 juzhong">
-						    <button class="button button-box button-giant" onclick="window.location.href('setcode.htm')">储位条码</button>
-                        </div><!-- /col-xs-4 -->
-					</div>
-                        
-                        
-                        </div>
+					                        </div><!-- /col-xs-4 -->
+					</div>  
+                   </div>
 
 
 			</section>
+			         <a id="scrollUp" style="position: fixed;display: block;">后退</a>
 			<footer class="footer">
 		        <h1>杭州世创电子技术股份有限公司</h1>
 		   </footer>
 </body>
+<script type="text/javascript">
+function closeWindow(){   
+	window.open('','_parent','');   
+	window.close(); 
+	}
+$("#scrollUp").click(function(){
+	   window.location.href="n3.htm";
+	   
+});
+</script>
 </html>

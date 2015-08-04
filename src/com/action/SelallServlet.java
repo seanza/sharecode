@@ -20,7 +20,7 @@ import net.sf.json.JSONArray;
 
 import com.dao.DbManager;
 import com.model.Chuwei;
-
+@WebServlet("/SelallServlet")
 public class SelallServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

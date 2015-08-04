@@ -7,8 +7,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -23,6 +25,7 @@ import net.sf.json.JSONArray;
 import com.dao.DbManager;
 import com.rxtx.Modbus;
 import com.sql.Getinfo;
+import com.sql.Setinfo;
 
 /**
  * Servlet implementation class SummetServlet
@@ -57,19 +60,51 @@ public class SummetServlet extends HttpServlet {
 		resp.setCharacterEncoding("utf-8");
 		String userName= req.getParameter("name");
 		System.out.println(userName);
+		Date datetime= new Date();
+		SimpleDateFormat sdfdate = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdftime = new SimpleDateFormat("HH:mm:ss");
 		String a=danxiang();
-		System.out.println(a);
 		String b=sanxiang();
-		System.out.println(b);
 		String c=Integer.toString(gettemwet()[0]);
-		System.out.println(c);
 		String d=Integer.toString(gettemwet()[1]);
-		System.out.println(d);
+		int[] yuzhi=Getinfo.getyuzhi();
+		int sum=Integer.parseInt(a)+Integer.parseInt(b);
+		String e=new String();
+		String getfromsess=(String) req.getSession().getAttribute("alert");
+		if(sum<yuzhi[5]){
+			e="alert";
+			if(getfromsess.equals("true")){}
+			else{
+			Setinfo.insertalert(sdfdate.format(datetime),sdftime.format(datetime), "表计数量报警");
+			req.getSession().setAttribute("alert","true");
+			}
+		}
+		else if(yuzhi[1]>gettemwet()[0]||gettemwet()[0]>yuzhi[2]){
+			e="alert";
+			if(getfromsess.equals("true")){}
+			else{
+			Setinfo.insertalert(sdfdate.format(datetime),sdftime.format(datetime), "温度报警");
+			req.getSession().setAttribute("alert","true");
+			}
+			}
+		else if(yuzhi[3]>gettemwet()[1]||gettemwet()[1]>yuzhi[4]){
+			e="alert";
+			if(getfromsess.equals("true")){}
+			else{
+			Setinfo.insertalert(sdfdate.format(datetime),sdftime.format(datetime), "湿度报警");
+			req.getSession().setAttribute("alert","true");
+			}
+			}
+		else{
+			e="nomal";
+			req.getSession().setAttribute("alert","false");
+		}
 		List<String> list = new ArrayList<String>();
 		list.add(a);
 		list.add(b);
 		list.add(c);
 		list.add(d);
+		list.add(e);
 		JSONArray jsons=new JSONArray();
 		PrintWriter out=resp.getWriter();
 		jsons = JSONArray.fromObject(list);

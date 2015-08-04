@@ -1,6 +1,11 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<style>
+.bell{
+      color:rgba(43, 52, 77, 0.9);
+     }
 
+</style>
  <div id="nav-wrapper">
             <!-- navbar -->
             <div class="navbar">
@@ -45,7 +50,7 @@
 
                                     <!-- Portfolio -->
                                     <li>
-                                        <a href="#" title="Portfolio" class="scrollto">关于</a>
+                                        <a href="#" title="Portfolio" class="scrollto"><i class="icon-bell-alt bell" id="bell"></i></a>
                                     </li><!-- /Portfolio -->
 
                                 </ul><!-- /nav -->
@@ -58,3 +63,5 @@
                 </div><!-- /container -->
             </div><!-- /navbar -->
         </div><!-- /nav-wrapper -->
+        
+

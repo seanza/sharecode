@@ -74,7 +74,9 @@ width: 140px;
             VoiceObj.Speak("欢迎使用智能周转柜系统", 1);
         </SCRIPT>
         <script type="text/javascript">
+        <%session.setAttribute("alert", "1");%>
             var a1="aaa";
+            var timeout = false;
             window.setInterval("time()",60000);
             function time(){
             $.ajax( {    
@@ -88,6 +90,14 @@ width: 140px;
     	                     document.getElementById("wet").innerHTML=msg[3];
     	                     document.getElementById("dan").innerHTML=msg[0];
     	                     document.getElementById("san").innerHTML=msg[1];
+    	                     if(msg[4]=="alert"){
+    	                    	 timeout = false;
+    	                    	 colorful();
+    	                     }
+    	                     else{
+    	                    	 timeout = true;
+    	                    	 colorful();
+    	                     }
                                         },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
                        },
@@ -97,6 +107,26 @@ width: 140px;
                       });
                       }
             window.onload = time;
+            var x=0;
+            function getColor(){
+	                x++;
+	                  switch(x){ 
+						case 1:return "#ff0000";
+						case 2:return "#FFFFFF";
+						case 3:return "#3366cc";
+						case 4:return "#FFFFFF";
+						default:return "black";
+						}
+				}
+			function colorful(){
+				    if(timeout) return;
+					var o =document.getElementById('bell');
+					o.style.color=getColor();
+					if(x==3)x=0;
+					setTimeout('colorful()',1000);
+				    
+			}
+
          </script>
           <script type="text/javascript">
     var webSocket = 

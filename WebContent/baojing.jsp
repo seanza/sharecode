@@ -3,6 +3,19 @@
 <html>
 <jsp:include page="./include/jsfile.jsp" />
 <jsp:include page="./include/head.jsp" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/vk/jquery-ui.min.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/vk/keyboard.css">
+		<script type="text/javascript"src="${pageContext.request.contextPath}/vk/jquery-ui.min.js"></script>
+		<script type="text/javascript"src="${pageContext.request.contextPath}/vk/jquery.keyboard.js"></script>
+		<script type="text/javascript"src="${pageContext.request.contextPath}/vk/jquery.mousewheel.js"></script>
+<script>
+		$(function(){
+			$('.keyinput').keyboard();
+		});
+		$(function(){
+			$('#keyboard1').keyboard();
+		});
+	</script>
 <style>
 .button-circle.button-giant, .button-box.button-giant, .button-square.button-giant {
 width: 140px;
@@ -68,7 +81,7 @@ opacity: .8;
 						     <h1>温度范围设定</h1>
                         </div>
                         <div class="col-sm-5">
-						   低限 <input name="group" type="text" id="teml" style='width:80px' value="" />高限<input name="group" type="text" id="temh" style='width:80px' value="" />
+						   低限 <input name="group" type="text" id="teml" class="keyinput" style='width:80px' value="" />高限<input name="group" type="text" id="temh" class="keyinput" style='width:80px' value="" />
                         </div><!-- /col-xs-4 -->
 					</div>
 					<div class="row mar15">
@@ -78,7 +91,7 @@ opacity: .8;
 						     <h1>湿度范围设定</h1>
                         </div>
                         <div class="col-sm-5">
-						   低限 <input name="group" type="text" id="wetl" style='width:80px' value="" />高限<input name="group" type="text" id="weth" style='width:80px' value="" />
+						   低限 <input name="group" type="text" id="wetl" class="keyinput" style='width:80px' value="" />高限<input name="group" type="text" id="weth" class="keyinput" style='width:80px' value="" />
                         </div><!-- /col-xs-4 -->
 					</div>
 					<div class="row mar15">
@@ -88,7 +101,7 @@ opacity: .8;
 						     <h1>储位报警设定</h1>
                         </div>
                         <div class="col-sm-5">
-						   小于 <input name="group" type="text" id="chul" style='width:80px' value="" />会报警
+						   小于 <input name="group" type="text" id="chul" class="keyinput"  style='width:80px' value="" />会报警
                         </div><!-- /col-xs-4 -->
 					</div>
                     <div class="row mar">
@@ -105,7 +118,36 @@ opacity: .8;
 		   </footer>
 </body>
 <script>
-
+var date="today";
+$.ajax({    
+	url:'GetyuzhiServlet',
+    data:{date:date},
+	type:'post',    
+	cache:false,     
+    dataType:'json',
+	success: function (a) {
+		document.getElementById('teml').value=a[0];
+		document.getElementById('temh').value=a[1];
+		document.getElementById('wetl').value=a[2];
+		document.getElementById('weth').value=a[3];
+		document.getElementById('chul').value=a[2];
+	},
+	error: function(XMLHttpRequest, textStatus, errorThrown) {
+		var d = dialog({
+	  		lock:true,
+	  		title: '消息',
+	  		content: '请直接设置参数',
+	  		 okValue: '确定',
+	  		    ok: function () {
+	  		    },
+	  		    cancel: false,
+	  	});
+	  	d.showModal();
+	},
+	complete: function(XMLHttpRequest, textStatus) {
+	  this; // 调用本次AJAX请求时传递的options参数
+	}
+	});
 
 $("#button1").click(function(){
 	var teml=document.getElementById('teml').value;
@@ -130,10 +172,10 @@ $("#button1").click(function(){
 			url:'BaojingcanshuServlet',
             data:{teml:teml,temh:temh,wetl:wetl,weth:weth,che1:che1,che2:che2,chul:chul},
 			type:'post',    
-			cache:false,    
+			cache:false,   
+			dataType:'text',
 			success: function (a) {
-				var aa=a.toString();
-				if(aa=="成功"){
+				//var aa=a.toString();
 					var d = dialog({
 			  		lock:true,
 			  		title: '消息',
@@ -145,10 +187,7 @@ $("#button1").click(function(){
 			  		    cancel: false,
 			  	});
 			  	d.showModal();
-				}
-				else{
-			      window.location.href="sconfig.jsp";
-				}
+			
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
 			  alert(textStatus);
@@ -157,6 +196,9 @@ $("#button1").click(function(){
 			  this; // 调用本次AJAX请求时传递的options参数
 			}
 			});
+	}
+	else{
+		alert("不允许设置空值");
 	}
 });
 $("#scrollUp").click(function(){

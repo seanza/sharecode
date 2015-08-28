@@ -48,19 +48,19 @@ opacity: .8;
 
                </div><!-- /col-md-12 -->
                <div class="mar">
-               <div id="divri" class="col-sm-4">
+               <div id="divri" class="col-sm-4 col-md-4">
                 <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
                     <input id="dtpicday" class="form-control" size="16"  type="text"  readonly />
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                     <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                     <input type="hidden" id="Hidden4" value="" />
                 </div> 
-                <div id="btchaxun" class="col-sm-2">
+                <div id="btchaxun" class="col-sm-2 col-md-2">
                       <input id="qsrichaxun" type="button" value="查询" />   
                 </div>
                 </div>
                 </div>
-                <div class="col-sm-12 juzhong" id="home"  style="height:420px">
+                <div class="col-sm-12 col-md-12 juzhong" id="home"  style="height:420px">
                 <table id="list1"></table>
                 </div>
        </div>
@@ -97,8 +97,9 @@ opacity: .8;
         colModel: [
             { name: '日期', index: 'time1', width: 100, align: "left" },
             { name: '时间', index: 'time2', width: 100, align: "left" },
-            { name: '事件', index: 'ope', width: 400, align: "left" },
+            { name: '事件', index: 'ope', width: 500, align: "left" },
         ],
+        autowidth: true,
         postData: PostData,
       });
     $('#dtpicday').change(function () {//获取输入的年月日
@@ -115,6 +116,7 @@ opacity: .8;
    	            { name: 'ope', index: 'ope', width: 400, align: "left" },
    	        ],
    	     rowNum:1000,
+   	  autowidth: true,
         postData: PostData,
       }).trigger("reloadGrid");
     });

@@ -122,10 +122,8 @@ private int CheckIfCodeRepeated(String[] stringA, String[] stringB)
 					
 			}
 		}
-			
 		return 0;
 	}
-
 public static void updateChuweiList(String[] sql1,String[] sql2){
 		Connection conn = null;
 		PreparedStatement pst = null;

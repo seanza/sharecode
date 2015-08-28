@@ -1,14 +1,6 @@
 package com.byteslounge.websockets;
  
 import java.io.IOException;
- 
-
-
-
-
-
-
-
 
 import javax.servlet.http.HttpSession;
 import javax.websocket.OnClose;
@@ -19,7 +11,6 @@ import javax.websocket.server.ServerEndpoint;
 
 import com.action.LogSaver;
 import com.rxtx.Modbus;
-import com.serotonin.io.serial.SerialParameters;
 import com.serotonin.modbus4j.ModbusFactory;
 import com.serotonin.modbus4j.ModbusMaster;
 import com.serotonin.modbus4j.exception.ModbusInitException;

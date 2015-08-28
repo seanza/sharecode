@@ -199,9 +199,8 @@ width: 140px;
                 	d.showModal();
             	}
             },
-
             error: function(XMLHttpRequest, textStatus, errorThrown) {
-                alert(textStatus);
+                //alert(textStatus);
             },
             complete: function(XMLHttpRequest, textStatus) {
                 this; // 调用本次AJAX请求时传递的options参数

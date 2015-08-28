@@ -30,6 +30,7 @@ width: 140px;
 		</div>
                     </div>
                     </div>
+                    </div>>
 			</section>
 			<footer class="footer">
 		        <h1>杭州世创电子技术股份有限公司</h1>
@@ -206,7 +207,7 @@ width: 140px;
             },
 
             error: function(XMLHttpRequest, textStatus, errorThrown) {
-                alert(textStatus);
+                //alert(textStatus);
             },
             complete: function(XMLHttpRequest, textStatus) {
                 this; // 调用本次AJAX请求时传递的options参数

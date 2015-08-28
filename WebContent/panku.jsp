@@ -180,7 +180,7 @@ opacity: .8;
     	    	}
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
-        alert(textStatus);
+        //alert(textStatus);
     },
     complete: function(XMLHttpRequest, textStatus) {
         this; // 调用本次AJAX请求时传递的options参数
@@ -261,7 +261,7 @@ opacity: .8;
     },
 
     error: function(XMLHttpRequest, textStatus, errorThrown) {
-        alert(textStatus);
+        //alert(textStatus);
     },
     complete: function(XMLHttpRequest, textStatus) {
         this; // 调用本次AJAX请求时传递的options参数
@@ -324,7 +324,7 @@ function keypress(e){
 	VoiceObj.Speak("请打开柜门，按顺序放表，扫码，完成后点击确认按钮",1);
 	function complete()
     {
-    	VoiceObj.Speak("出库成功，请关闭柜门", 1);
+    	VoiceObj.Speak("盘库成功，请关闭柜门", 1);
     }
 </script>
 </body>

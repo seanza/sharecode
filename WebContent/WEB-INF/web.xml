@@ -137,10 +137,6 @@
     <url-pattern>/DelcodeServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>SelallServlet</servlet-name>
-    <url-pattern>/SelallServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
     <servlet-name>SummetServlet</servlet-name>
     <url-pattern>/SummetServlet</url-pattern>
   </servlet-mapping>
@@ -163,10 +159,6 @@
   <servlet-mapping>
     <servlet-name>PankuquerenServlet</servlet-name>
     <url-pattern>/PankuquerenServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>SetusefulServlet</servlet-name>
-    <url-pattern>/SetusefulServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>BaojingcanshuServlet</servlet-name>

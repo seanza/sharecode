@@ -3,6 +3,16 @@
 <html>
 <jsp:include page="./include/jsfile.jsp" />
 <jsp:include page="./include/head.jsp" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/vk/jquery-ui.min.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/vk/keyboard.css">
+		<script type="text/javascript"src="${pageContext.request.contextPath}/vk/jquery-ui.min.js"></script>
+		<script type="text/javascript"src="${pageContext.request.contextPath}/vk/jquery.keyboard.js"></script>
+		<script type="text/javascript"src="${pageContext.request.contextPath}/vk/jquery.mousewheel.js"></script>
+<script>
+		$(function(){
+			$('.keyinput').keyboard();
+		});
+</script>
 <style>
 .button-circle.button-giant, .button-box.button-giant, .button-square.button-giant {
 width: 140px;
@@ -56,7 +66,7 @@ opacity: .8;
 						     <h1>用户名</h1>
                         </div>
                         <div class="col-sm-5">
-						    <input name="group" type="text" id="name" class="form-control" style='width:200px' value="" />
+						    <input name="group" type="text" id="name" class="form-control keyinput" style='width:200px' value="" />
                         </div><!-- /col-xs-4 -->
 					</div>
 					<div class="row mar15">
@@ -66,7 +76,7 @@ opacity: .8;
 						     <h1>密码</h1>
                         </div><!-- /col-xs-4 -->
                         <div class="col-sm-5">
-						    <input name="group" type="text" id="psd" class="form-control" style='width:200px' value="" />
+						    <input name="group" type="text" id="psd" class="form-control keyinput" style='width:200px' value="" />
                         </div><!-- /col-xs-4 -->
 					</div>
 					<div class="row mar15">
@@ -76,7 +86,7 @@ opacity: .8;
 						     <h1>确认密码</h1>
                         </div><!-- /col-xs-4 -->
                         <div class="col-sm-5">
-						    <input name="group" type="text" id="psd2" class="form-control" onkeyup='conpsd()' style='width:200px' value="" />
+						    <input name="group" type="text" id="psd2" class="form-control keyinput" onkeyup='conpsd()' style='width:200px' value="" />
                         </div><!-- /col-xs-4 -->
 					</div>
                         

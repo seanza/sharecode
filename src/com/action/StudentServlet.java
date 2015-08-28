@@ -37,16 +37,18 @@ public class StudentServlet extends HttpServlet {
 		String userPwd = request.getParameter("userPwd");
 		System.out.println(userName);
 		System.out.println(userPwd);
-		
+		PrintWriter out = response.getWriter();
 		if(StringUtil.isBlank(userName)&&(StringUtil.isBlank(userPwd))){
-			request.setAttribute("error","姓名和密碼錯誤！");
-			request.getSession().setAttribute("login", "/login"); //setAttribute�������
-			request.getRequestDispatcher("/login").forward(request, response); //getRequestDispatcher��ʾrequest������ɣ��·�����һ��ҳ��
+			//request.setAttribute("error","姓名和密碼錯誤！");
+			//request.getSession().setAttribute("login", "/login"); //setAttribute�������
+			//request.getRequestDispatcher("/login").forward(request, response); //getRequestDispatcher��ʾrequest������ɣ��·�����һ��ҳ��
+			out.print("<script>alert('请输入正确的用户名密码');</script>");
+			out.print("<script>window.location.href='n2.jsp'</script>");
 			return;
 		}
 		
 		List<Student> list = studentService.findName(new Student(userName,userPwd));
-		PrintWriter out = response.getWriter();
+		
 		LogSaver ls = new LogSaver();
 		if(list.size()>0){
 			System.out.println(list.get(0).getGroup());

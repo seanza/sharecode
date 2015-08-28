@@ -36,7 +36,7 @@ public class BaojingcanshuServlet extends HttpServlet {
         resp.setHeader("Cache-Control","no-cache");  
 		req.setCharacterEncoding("utf-8");
 		resp.setCharacterEncoding("utf-8");
-		System.out.println("ppppp");
+		
         String teml= req.getParameter("teml");
         String temh= req.getParameter("temh");
         String wetl= req.getParameter("wetl");
@@ -48,6 +48,7 @@ public class BaojingcanshuServlet extends HttpServlet {
         setyuzhi(teml,temh,wetl,weth,chul);
         setbaojing(che1,che2);
 	    PrintWriter out=resp.getWriter();
+	    System.out.println("ppppp");
 	    out.println("成功");
 	}
    public void setyuzhi(String teml,String temh,String wetl,String weth,String chul){
